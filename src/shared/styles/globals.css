@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 198 100% 95%;
+    --foreground: 198 5% 0%;
+    --card: 198 50% 90%;
+    --card-foreground: 198 5% 10%;
+    --popover: 360 100% 100%;
+    --popover-foreground: 198 100% 0%;
+    --primary: 198 100% 44.5%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 198 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 160 30% 85%;
+    --muted-foreground: 198 5% 35%;
+    --accent: 160 30% 80%;
+    --accent-foreground: 198 5% 10%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 198 5% 90%;
+    --border: 198 30% 50%;
+    --input: 198 30% 18%;
+    --ring: 198 100% 44.5%;
+    --radius: 0.5rem;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  .dark {
+    --background: 198 50% 5%;
+    --foreground: 198 5% 90%;
+    --card: 198 50% 0%;
+    --card-foreground: 198 5% 90%;
+    --popover: 198 50% 5%;
+    --popover-foreground: 198 5% 90%;
+    --primary: 198 100% 44.5%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 198 30% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 160 30% 15%;
+    --muted-foreground: 198 5% 60%;
+    --accent: 160 30% 15%;
+    --accent-foreground: 198 5% 90%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 198 5% 90%;
+    --border: 198 30% 18%;
+    --input: 198 30% 18%;
+    --ring: 198 100% 44.5%;
+    --radius: 0.5rem;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  body {
+    @apply text-[#212121] font-roboto;
+  }
+  h1 {
+    @apply text-4xl font-extrabold;
+  }
+  span {
+    @apply text-sm;
+  }
+}
+
+@layer components {
+  .title-menu {
+    @apply pl-3 py-2.5 text-base font-bold;
+  }
+
+  .page-link {
+    @apply relative block no-underline text-[#212121] px-4 py-2;
+    /* color: #0d6efd; */
+    /* border-color: #dee2e6; */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .pagination-disabled-container {
+    @apply text-[#6c757d] pointer-events-none;
+  }
+  .pagination-disabled {
+    @apply text-[#6c757d] pointer-events-none;
+  }
+  .pagination-active {
+    @apply bg-[#212121]/10 rounded-full;
+  }
+  .nextprev-item {
+    @apply flex items-center;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+  }
+}
