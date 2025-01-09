@@ -7,6 +7,7 @@ function DashboardPage() {
     <LayoutContainer>
       <Dashboard />
     </LayoutContainer>
+    
   );
 }
 
