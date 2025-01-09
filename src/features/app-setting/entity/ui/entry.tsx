@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import { useForm, SubmitHandler, type FieldErrors } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-
 import { Form } from '@/components/form/form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod';
 import router, { useRouter } from 'next/router';
 import { InputField } from '@/components/form/inputField';
 import { CheckboxField } from '@/components/form/checkBoxField';
-import { APPSETTING_CLIENT_APP_VERSION } from '@/shared/constants/path';
-import { ClientAppVersionSchema } from '../model/clientAppVersionSchema';
+import { APPSETTING_ENTITY } from '@/shared/constants/path';
 import { Label } from '@/components/ui/label';
-import LookupClientAppType from '@/features/lookup/lookupClientAppType';
+import { EntitySchema } from '../model/entitySchema';
 
 type Params = {
 	initialData?: any;
@@ -20,27 +18,27 @@ type Params = {
 }
 
 
-function ClientAppVersionEntryForm({
+function EntityEntryForm({
 	initialData,
 	onFormSubmit,
 	isPending
 }: Params) {
-	const form = useForm<z.infer<typeof ClientAppVersionSchema>>({
-		resolver: zodResolver(ClientAppVersionSchema),
+	const form = useForm<z.infer<typeof EntitySchema>>({
+		resolver: zodResolver(EntitySchema),
 		defaultValues: initialData
 	});
 
-	const onSubmit: SubmitHandler<z.infer<typeof ClientAppVersionSchema>> = (data) => {
+	const onSubmit: SubmitHandler<z.infer<typeof EntitySchema>> = (data) => {
 		onFormSubmit && onFormSubmit(data);
 	};
 
-	const onError = (errors: FieldErrors<typeof ClientAppVersionSchema>) => {
+	const onError = (errors: FieldErrors<typeof EntitySchema>) => {
 		console.log('form errors: ', errors);
 
 	};
 
 	const goBack = () => {
-		router.replace(APPSETTING_CLIENT_APP_VERSION.LIST)
+		router.replace(APPSETTING_ENTITY.LIST)
 	}
 	return (
 		<>
@@ -54,31 +52,25 @@ function ClientAppVersionEntryForm({
 							<div className='flex flex-col flex-1 gap-3 mb-3'>
 								<div className="grid md:grid-cols-2 w-full gap-3 ">
 									<div className='flex flex-col gap-3'>
-										<div className="grid w-full gap-3 ">
-											{/* <InputField
-												title="Client App Type"
-												name='client_app_type'
-												placeholder='Client App Type'
-												required
-											/> */}
-											<LookupClientAppType name='client_app_type' />
-										</div>
 										<InputField
-											title="Version"
-											name="version"
-											placeholder="Version"
+											title="Name"
+											name='name'
+											placeholder='Name'
 											required
-											onKeyDown={(e) => {
-												if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete') {
-												  e.preventDefault();
-												}
-											}
-											}
+										/>
+										<InputField
+											title="Unique Key"
+											name="unique_key"
+											placeholder="Unique Key"
+											required
 										/>
 									</div>
-									<div className='flex flex-col gap-3'>
-										<Label htmlFor="is_active" className="text-sm font-medium">Is Active</Label>
-										<CheckboxField name="is_active" title="Yes" />
+									<div className='flex flex-col gap-3 mt-8'>
+										<div className='flex flex-col gap-3'>
+											<CheckboxField name="allow_access_web" title="Allow Access Web" />
+											<CheckboxField name="allow_access_mobile" title="Allow Access Mobile" />
+											<CheckboxField name="allow_access_engine" title="Allow Access Engine" />
+										</div>
 									</div>
 								</div> 
 							</div>
@@ -98,4 +90,4 @@ function ClientAppVersionEntryForm({
 	);
 }
 
-export default ClientAppVersionEntryForm;
+export default EntityEntryForm;

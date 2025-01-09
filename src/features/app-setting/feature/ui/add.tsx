@@ -1,34 +1,37 @@
 import React, { useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { FaLeftLong } from 'react-icons/fa6';
-import ClientAppVersionEntryForm from './entry';
-import { ClientAppVersionFormFields } from '@/shared/model/app-setting/clientAppVersionTypes';
 import router from 'next/router';
-import { APPSETTING_CLIENT_APP_VERSION } from '@/shared/constants/path';
-import useClientAppVersion from '../hooks/useClientAppVersion';
 import LoadingOverlay from '@/components/ui/custom/loadingOverlay';
+import useFeature from '../hooks/useFeature';
+import { FeatureFormFields } from '@/shared/model/app-setting/featureTypes';
+import { APPSETTING_FEATURE } from '@/shared/constants/path';
+import FeatureEntryForm from './entry';
 
-function AppSettingClientAppVersionAdd() {
-	const dataClientAppVersion = {
+function AppSettingFeatureAdd() {
+	const dataEntity = {
 		name: '',
-		version: '',
-		is_active: false
+		allow_access_web: false,
+		allow_access_mobile: false,
+		allow_access_engine: false,
+		unique_key:''
 	};
 
-	const { handleCreate, mutationCreate } = useClientAppVersion();
+	const { handleCreate, mutationCreate } = useFeature();
 	const { isPending, isError, error,isSuccess } = mutationCreate;
 
 	const onFormSubmit = useCallback((data: any) => {
-		const formData: ClientAppVersionFormFields = {
-			client_app_type: data.client_app_type,
-			version: Number(data?.version),
+		const formData: FeatureFormFields = {
+			name: data.name,
+			path:data.path,
+			parent_feature:data.parent_feature,
 			is_active: data.is_active,
 		}
 		handleCreate(formData);
 	}, [])
 
 	const goBack=() => {
-		router.replace(APPSETTING_CLIENT_APP_VERSION.LIST)
+		router.replace(APPSETTING_FEATURE.LIST)
 	}
 
 	useEffect(() => {
@@ -47,20 +50,20 @@ function AppSettingClientAppVersionAdd() {
 					>
 						<FaLeftLong />
 					</Button>
-					<h1>Add Client App Version</h1>
+					<h1>Add Feature</h1>
 				</div>
 			</section>
-			<ClientAppVersionEntryForm 
-				initialData={dataClientAppVersion} 
+			<FeatureEntryForm
+				initialData={dataEntity} 
 				onFormSubmit={onFormSubmit}
 				isPending={isPending}
 			/>
 			{isError && (
 				<div>{'error'}</div>
 			)}
-			<LoadingOverlay isOpen={isPending}/>
+			 <LoadingOverlay isOpen={isPending}/>
 			</div>
 	);
 }
 
-export default AppSettingClientAppVersionAdd;
+export default AppSettingFeatureAdd;

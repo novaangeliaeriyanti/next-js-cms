@@ -9,6 +9,7 @@ import { FaPlus } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { FeatureFilterFields } from '@/shared/model/app-setting/featureTypes';
 import useFeature from '../hooks/useFeature';
+import { APPSETTING_FEATURE } from '@/shared/constants/path';
 
 export default function FeatureList() {
   const { handleDelete, mutationDelete} = useFeature();
@@ -27,7 +28,7 @@ export default function FeatureList() {
             <p>Berikut adalah daftar feature yang terdaftar di sistem</p>
           </div>
           <Button size="lg" className="flex gap-3"
-            // onClick={() => router.push(APPSETTING_CLIENT_APP_VERSION.ADD)}
+            onClick={() => router.push(APPSETTING_FEATURE.ADD)}
           >
             <FaPlus />
             Tambah

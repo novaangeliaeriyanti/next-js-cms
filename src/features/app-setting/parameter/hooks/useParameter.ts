@@ -12,19 +12,19 @@ const useParameter = () => {
 		api: deleteParameter,
 		options: {
 			onError: (error: any) => {
-				console.log('errornya', error);
 				toast({
-				  variant: 'destructive',
-				  title: 'Gagal Menghapus',
-				  description: error?.message ?? 'Network Error',
-				});
+					variant: 'destructive',
+					title: 'Gagal Menghapus',
+					description: error?.message ?? 'Network Error',
+				  });
 			},
 			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_PARAMETER_LIST}`] });
-				console.log('Berhasil hapus data!');
 				toast({
-				  title: 'Data berhasil dihapus',
-				});
+					variant: 'success',
+					title: "Success",
+					description:'Berhasil Menghapus Data',
+				  })
+				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_PARAMETER_LIST}`] });
 			},
 		},
 	});

@@ -11,8 +11,6 @@ export type FeatureTableFields = {
 }
 
 export interface FeatureFormFields {
-	id: number;
-	no: number;
 	name: string;
 	path: string;
 	parent_feature: string;

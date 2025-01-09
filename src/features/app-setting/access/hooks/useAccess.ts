@@ -14,14 +14,18 @@ const useAccess = () => {
 		api: createAccess,
 		options: {
 			onError: (error: any) => {
-				console.log('errornya', error);
 				toast({
-				  variant: 'destructive',
-				  title: 'Gagal Menyimpan',
-				  description: error?.message ?? 'Network Error',
-				});
+					variant: 'destructive',
+					title: 'Gagal Menambahkan Data',
+					description: error?.message ?? 'Network Error',
+				  });
 			},
 			onSuccess: () => {
+				toast({
+					variant: 'success',
+					title: "Success",
+					description:'Berhasil Menambahkan Data',
+				  })
 				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_ACCESS_LIST}`] });
 				console.log('Berhasil submit data!');
 			},

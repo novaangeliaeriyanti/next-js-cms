@@ -22,7 +22,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className={roboto.variable}>
         <Component {...pageProps} />
         <Toaster />
-
       </div>
     </QueryClientProvider>
   )

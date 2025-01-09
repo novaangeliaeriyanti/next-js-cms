@@ -13,15 +13,33 @@ const APPSETTING_CLIENT_APP_VERSION = {
 }
 
 const APPSETTING_ENTITY = {
-  LIST: `/app-setting/entity/grid`,
+  LIST: `/app-setting/entity`,
+  ADD: `/app-setting/entity/add`,
 }
 
 const APPSETTING_FEATURE = {
-  LIST: `/app-setting/feature/grid`,
+  LIST: `/app-setting/feature`,
+  ADD: `/app-setting/feature/add`,
 }
 
 const APPSETTING_PARAMETER = {
-  LIST: `/app-setting/parameter/grid`,
+  LIST: `/app-setting/parameter`,
+}
+
+const APPSETTING_PARAMETER_ITEM = {
+  LIST: `/app-setting/parameter-item`,
+}
+
+const APPSETTING_ROLE = {
+  LIST: `/app-setting/role`,
+}
+
+const APPSETTING_TASK_SCHEDULE = {
+  LIST: `/app-setting/task-schedule`,
+}
+
+const APPSETTING_USER = {
+  LIST: `/app-setting/user`,
 }
 
 // const PRIVATE_ROUTES = [DASHBOARD];
@@ -35,5 +53,9 @@ export {
   APPSETTING_CLIENT_APP_VERSION,
   APPSETTING_ENTITY,
   APPSETTING_PARAMETER,
-  APPSETTING_FEATURE
+  APPSETTING_FEATURE,
+  APPSETTING_PARAMETER_ITEM,
+  APPSETTING_ROLE,
+  APPSETTING_TASK_SCHEDULE,
+  APPSETTING_USER
 };

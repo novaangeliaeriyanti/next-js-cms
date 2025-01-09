@@ -9,6 +9,7 @@ import { EntityFilterFields } from '@/shared/model/app-setting/entityTypes';
 import { FaPlus } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import useEntity from '../hooks/useEntity';
+import { APPSETTING_ENTITY } from '@/shared/constants/path';
 
 export default function EntityList() {
   const { handleDelete, mutationDelete} = useEntity();
@@ -27,7 +28,7 @@ export default function EntityList() {
             <p>Berikut adalah daftar entity yang terdaftar di sistem</p>
           </div>
           <Button size="lg" className="flex gap-3"
-            // onClick={() => router.push(APPSETTING_CLIENT_APP_VERSION.ADD)}
+            onClick={() => router.push(APPSETTING_ENTITY.ADD)}
           >
             <FaPlus />
             Tambah

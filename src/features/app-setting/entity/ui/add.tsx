@@ -1,34 +1,38 @@
 import React, { useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { FaLeftLong } from 'react-icons/fa6';
-import ClientAppVersionEntryForm from './entry';
-import { ClientAppVersionFormFields } from '@/shared/model/app-setting/clientAppVersionTypes';
 import router from 'next/router';
-import { APPSETTING_CLIENT_APP_VERSION } from '@/shared/constants/path';
-import useClientAppVersion from '../hooks/useClientAppVersion';
+import useEntity from '../hooks/useEntity';
+import { EntityFormFields } from '@/shared/model/app-setting/entityTypes';
+import { APPSETTING_ENTITY } from '@/shared/constants/path';
+import EntityEntryForm from './entry';
 import LoadingOverlay from '@/components/ui/custom/loadingOverlay';
 
-function AppSettingClientAppVersionAdd() {
-	const dataClientAppVersion = {
+function AppSettingEntityAdd() {
+	const dataEntity = {
 		name: '',
-		version: '',
-		is_active: false
+		allow_access_web: false,
+		allow_access_mobile: false,
+		allow_access_engine: false,
+		unique_key:''
 	};
 
-	const { handleCreate, mutationCreate } = useClientAppVersion();
+	const { handleCreate, mutationCreate } = useEntity();
 	const { isPending, isError, error,isSuccess } = mutationCreate;
 
 	const onFormSubmit = useCallback((data: any) => {
-		const formData: ClientAppVersionFormFields = {
-			client_app_type: data.client_app_type,
-			version: Number(data?.version),
-			is_active: data.is_active,
+		const formData: EntityFormFields = {
+			name: data.name,
+			allow_access_web: data.allow_access_web,
+			allow_access_mobile: data.allow_access_mobile,
+			allow_access_engine: data.allow_access_engine,
+			unique_key:data.unique_key
 		}
 		handleCreate(formData);
 	}, [])
 
 	const goBack=() => {
-		router.replace(APPSETTING_CLIENT_APP_VERSION.LIST)
+		router.replace(APPSETTING_ENTITY.LIST)
 	}
 
 	useEffect(() => {
@@ -47,20 +51,20 @@ function AppSettingClientAppVersionAdd() {
 					>
 						<FaLeftLong />
 					</Button>
-					<h1>Add Client App Version</h1>
+					<h1>Add Entity</h1>
 				</div>
 			</section>
-			<ClientAppVersionEntryForm 
-				initialData={dataClientAppVersion} 
+			<EntityEntryForm
+				initialData={dataEntity} 
 				onFormSubmit={onFormSubmit}
 				isPending={isPending}
 			/>
 			{isError && (
 				<div>{'error'}</div>
 			)}
-			<LoadingOverlay isOpen={isPending}/>
+			 <LoadingOverlay isOpen={isPending}/>
 			</div>
 	);
 }
 
-export default AppSettingClientAppVersionAdd;
+export default AppSettingEntityAdd;

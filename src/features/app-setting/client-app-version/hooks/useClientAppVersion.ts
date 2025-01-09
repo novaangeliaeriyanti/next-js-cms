@@ -3,7 +3,7 @@ import { toast  } from '@/components/ui/use-toast';
 import {
 	deleteClientAppVersion,
 	createClientAppVersion
-} from '@/shared/api/mutations/clientAppVersion';
+} from '@/shared/api/mutations/clientappversion';
 import useMutationHook from '@/shared/hooks/useMutationHook';
 import { APP_SETTING } from '@/shared/constants/endpoint';
 const useClientAppVersion = () => {
@@ -12,16 +12,19 @@ const useClientAppVersion = () => {
 		api: createClientAppVersion,
 		options: {
 			onError: (error: any) => {
-				console.log('errornya', error);
 				toast({
 				  variant: 'destructive',
-				  title: 'Gagal Menyimpan',
+				  title: 'Gagal Menambahkan Data',
 				  description: error?.message ?? 'Network Error',
 				});
 			},
 			onSuccess: () => {
+				toast({
+					variant: 'success',
+					title: "Success",
+					description:'Berhasil Menambahkan Data',
+				  })
 				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_CLIENT_APP_VERSION_LIST}`] });
-				console.log('Berhasil submit data!');
 			},
 		},
 	});
@@ -30,37 +33,10 @@ const useClientAppVersion = () => {
 		return await mutationCreate.mutateAsync(data);
 	};
 
-	// const mutationUpdate = useMutationHook({
-	// 	api: updateAccess,
-	// 	options: {
-	// 		onError: (error: any) => {
-	// 			console.log('errornya', error);
-	// 			toast({
-	// 			  variant: 'destructive',
-	// 			  title: 'Gagal Menyimpan',
-	// 			  description: error?.message ?? 'Network Error',
-	// 			});
-	// 		},
-	// 		onSuccess: () => {
-	// 			queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_ACCESS_LIST}`] });
-	// 			queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_ACCESS_BY_ID}`] });
-	// 			console.log('Berhasil submit data!');
-	// 			toast({
-	// 			  title: 'Berhasil Menyimpan',
-	// 			});
-	// 		},
-	// 	},
-	// });
-
-	// const handleUpdate = async ({data}: { data: any}) => {
-	// 	return await mutationUpdate.mutateAsync({data});
-	// };
-
 	const mutationDelete = useMutationHook({
 		api: deleteClientAppVersion,
 		options: {
 			onError: (error: any) => {
-				console.log('errornya', error);
 				toast({
 				  variant: 'destructive',
 				  title: 'Gagal Menghapus',
@@ -68,11 +44,12 @@ const useClientAppVersion = () => {
 				});
 			},
 			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_CLIENT_APP_VERSION_LIST}`] });
-				console.log('Berhasil hapus data!');
 				toast({
-				  title: 'Data berhasil dihapus',
-				});
+					variant: 'success',
+					title: "Success",
+					description:'Berhasil Menghapus Data',
+				  })
+				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_CLIENT_APP_VERSION_LIST}`] });
 			},
 		},
 	});
@@ -85,8 +62,6 @@ const useClientAppVersion = () => {
 	return {
 		mutationCreate,
 		handleCreate,
-		// mutationUpdate,
-		// handleUpdate,
 		mutationDelete,
 		handleDelete
 	};

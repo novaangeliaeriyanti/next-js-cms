@@ -33,9 +33,9 @@ function AppSettingAccessAdd() {
 			feature_id: data.feature.id,
 			feature: data.feature.name
 		}
-		console.log('data fromdat', formData)
+		// console.log('data fromdat', formData)
 		
-		handleCreate(formData);
+		// handleCreate(formData);
 	}, [])
 
 	const goBack=() => {

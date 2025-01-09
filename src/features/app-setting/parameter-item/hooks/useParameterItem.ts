@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast  } from '@/components/ui/use-toast';
 import useMutationHook from '@/shared/hooks/useMutationHook';
 import { APP_SETTING } from '@/shared/constants/endpoint';
-import { deleteParameterItem } from '@/shared/api/mutations/parameterItem';
+import { deleteParameterItem } from '@/shared/api/mutations/parameteritem';
 const useParameterItem = () => {
 	const queryClient = useQueryClient();
 
@@ -10,19 +10,19 @@ const useParameterItem = () => {
 		api: deleteParameterItem,
 		options: {
 			onError: (error: any) => {
-				console.log('errornya', error);
 				toast({
-				  variant: 'destructive',
-				  title: 'Gagal Menghapus',
-				  description: error?.message ?? 'Network Error',
-				});
+					variant: 'destructive',
+					title: 'Gagal Menghapus',
+					description: error?.message ?? 'Network Error',
+				  });
 			},
 			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_PARAMETER_ITEM_LIST}`] });
-				console.log('Berhasil hapus data!');
 				toast({
-				  title: 'Data berhasil dihapus',
-				});
+					variant: 'success',
+					title: "Success",
+					description:'Berhasil Menghapus Data',
+				  })
+				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_PARAMETER_ITEM_LIST}`] });
 			},
 		},
 	});
