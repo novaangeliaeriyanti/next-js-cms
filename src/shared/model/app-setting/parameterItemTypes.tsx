@@ -10,13 +10,20 @@ export type ParameterItemTableFields = {
 	is_active: boolean;
 }
 
-export interface ParameterItemFormFields {
+export type ParameterItemParameterTableFields = {
 	id: number;
 	no: number;
+	parameter: string;
+	is_active: boolean;
+	description: string;
+}
+
+export interface ParameterItemFormFields {
 	name: string;
 	value: string;
 	parameter: string;
 	is_active: boolean;
+	parameter_id:number;
 }
 
 export const ParameterItemFilterFields: filterParams[] = [

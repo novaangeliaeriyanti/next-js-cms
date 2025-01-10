@@ -9,6 +9,7 @@ import { FaPlus } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { TaskScheduleFilterFields } from '@/shared/model/app-setting/taskScheduleTypes';
 import useTaskSchedule from '../hooks/useTaskSchedule';
+import { APPSETTING_TASK_SCHEDULE } from '@/shared/constants/path';
 
 export default function TaskScheduleList() {
   const { handleDelete, mutationDelete} = useTaskSchedule();
@@ -27,7 +28,7 @@ export default function TaskScheduleList() {
             <p>Berikut adalah task schedule yang terdaftar di sistem</p>
           </div>
           <Button size="lg" className="flex gap-3"
-            // onClick={() => router.push(APPSETTING_CLIENT_APP_VERSION.ADD)}
+            onClick={() => router.push(APPSETTING_TASK_SCHEDULE.ADD)}
           >
             <FaPlus />
             Tambah

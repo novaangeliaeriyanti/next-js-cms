@@ -16,12 +16,14 @@ import { useFormContext } from "react-hook-form";
 import { Input } from "../ui/input";
 import { cn } from "@/shared/lib/utils";
 import { FormControl, FormField, FormItem } from "./form";
+import { isEmpty } from '@/shared/hooks/useValidate';
 
 export interface InputLookupProps<T> extends React.InputHTMLAttributes<HTMLInputElement> {
 	endPoint: string;
 	columnDef: ColumnDef<T, any>[]
 	filterFields: filterParams[],
-	onSelect?: (row: any) => void
+	onSelect?: (row: any) => void,
+	columnChild: any,
 }
 
 export function InputLookup<T,>({
@@ -33,6 +35,8 @@ export function InputLookup<T,>({
 	title,
 	required,
 	placeholder,
+	type,
+	columnChild,
 	...props
 }: InputLookupProps<T>) {
 
@@ -41,7 +45,6 @@ export function InputLookup<T,>({
 	const { setValue, getValues, formState } = useFormContext();
 	const { errors }: any = formState;
 	const { control } = useFormContext();
-
 	const handleSelect = () => {
 		if (selectedRow) {
 			onSelect && onSelect(selectedRow)
@@ -50,7 +53,6 @@ export function InputLookup<T,>({
 		}
 		setOpenModal(false)
 	}
-
 	return (
 		<div className="flex flex-row items-end gap-1">
 			<div
@@ -76,7 +78,7 @@ export function InputLookup<T,>({
 											placeholder={placeholder}
 											readOnly
 											type="text"
-											value={getValues(name as string)?.name || ''}
+											value={getValues(name as string)?.[name as string] || getValues(name as string)?.name || ''}
 											className={cn(
 												errors[name as string]?.id?.message &&
 													'border border-destructive text-destructive placeholder:text-destructive'
@@ -124,7 +126,22 @@ export function InputLookup<T,>({
 									{errors[name as string] && (
 										<p className="text-red-500">{`${errors[name as string]?.id?.message}`}</p>
 									)}
-
+									{
+										(columnChild?.length > 0 && !isEmpty(getValues(name as string)?.[name as string])) && (
+											<div className='flex flex-col gap-1'>
+												{
+													columnChild?.map((item: string) => (
+														<Input
+															id={item}
+															readOnly
+															type="text"
+															value={getValues(name as string)?.[item] || ''}
+														/>
+													))
+												}
+											</div>
+											)
+									}
 								</div>
 							</FormControl>
 						</FormItem>

@@ -10,8 +10,6 @@ export type ParameterTableFields = {
 }
 
 export interface ParameterFormFields {
-	id: number;
-	no: number;
 	name: string;
 	is_active: boolean;
 	description: string;

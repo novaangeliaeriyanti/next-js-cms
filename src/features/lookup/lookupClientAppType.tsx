@@ -15,15 +15,6 @@ const columnRoleDef = [
   columnHelper.accessor('id', {
     header: 'ID',
   }),
-  // columnHelper.accessor('name', {
-  //   header: 'Name',
-  // }),
-  // columnHelper.accessor('name', {
-  //   header: 'Value',
-  // }),
-  // columnHelper.accessor('name', {
-  //   header: 'Parameter',
-  // }),
   columnHelper.accessor('client_app_type', {
     header: 'Client App Type',
   }),
@@ -48,11 +39,11 @@ const filterFields: filterParams[] = [
 
 
 type Props = {
-  name: string
+  name: string,
+  columnChild: any
 }
 
-export default function LookupClientAppType({ name }:Props) {
-
+export default function LookupClientAppType({ name, columnChild}:Props) {
   return (
     <InputLookup
       endPoint={APP_SETTING.FETCH_CLIENT_APP_TYPE}
@@ -62,6 +53,7 @@ export default function LookupClientAppType({ name }:Props) {
       name={name}
       placeholder="Client App Type"
       required
+      columnChild={columnChild}
     />
   )
 }

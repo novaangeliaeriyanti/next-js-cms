@@ -9,6 +9,7 @@ import { FaPlus } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { ParameterFilterFields } from '@/shared/model/app-setting/parameterTypes';
 import useParameter from '../hooks/useParameter';
+import { APPSETTING_PARAMETER } from '@/shared/constants/path';
 
 export default function ParameterList() {
   const { handleDelete, mutationDelete} = useParameter();
@@ -27,7 +28,7 @@ export default function ParameterList() {
             <p>Berikut adalah daftar parameter yang terdaftar di sistem</p>
           </div>
           <Button size="lg" className="flex gap-3"
-            // onClick={() => router.push(APPSETTING_CLIENT_APP_VERSION.ADD)}
+            onClick={() => router.push(APPSETTING_PARAMETER.ADD)}
           >
             <FaPlus />
             Tambah

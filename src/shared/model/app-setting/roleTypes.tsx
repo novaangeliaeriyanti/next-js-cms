@@ -10,8 +10,6 @@ export interface RoleTableFields {
 }
 
 export interface RoleFormFields {
-	id: number;
-	no: number;
 	name: string;
 	is_administrator: boolean;
 	is_active: boolean;

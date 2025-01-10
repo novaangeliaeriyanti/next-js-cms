@@ -1,5 +1,14 @@
 import { APP_SETTING } from '@/shared/constants/endpoint';
 import { postData, putData, deleteData } from '@/shared/lib/axiosHelper';
+const createRole = async (data: any) => {
+	const res = await postData({
+		endpoint: APP_SETTING.CREATE_ROLE,
+		data
+	});
+
+	return res?.data;
+};
+
 
 const deleteRole = async ({id}: {id: string}) => {
 	const res = await deleteData({
@@ -8,4 +17,4 @@ const deleteRole = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteRole };
+export { deleteRole, createRole };

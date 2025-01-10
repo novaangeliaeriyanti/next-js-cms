@@ -23,26 +23,33 @@ const APP_SETTING = {
   FETCH_FEATURE_LIST:'/app-setting/feature/grid',
   DELETE_FEATURE:'/app-setting/feature',
   CREATE_FEATURE:'/app-setting/feature',
+  FETCH_PARENT_FEATURE:'/app-setting/feature/lookup',
 
   //PARAMETER_ITEM
   FETCH_PARAMETER_ITEM_LIST:'/app-setting/parameter-item/grid',
   DELETE_PARAMETER_ITEM:'/app-setting/parameter-item',
+  CREATE_PARAMETER_ITEM:'/app-setting/parameter-item',
+  FETCH_PARAMETER:'/app-setting/parameter-item/lookup',
 
   //PARAMETER
   FETCH_PARAMETER_LIST:'/app-setting/parameter/grid',
   DELETE_PARAMETER:'/app-setting/parameter',
+  CREATE_PARAMETER:'/app-setting/parameter',
 
   //ROLE
   FETCH_ROLE_LIST:'/app-setting/role/grid',
   DELETE_ROLE:'/app-setting/role',
+  CREATE_ROLE:'/app-setting/role',
 
   //TASK_SCHEDULE
   FETCH_TASK_SCHEDULE_LIST:'/app-setting/task-schedule/grid',
   DELETE_TASK_SCHEDULE:'/app-setting/task-schedule',
+  CREATE_TASK_SCHEDULE:'/app-setting/task-schedule',
 
   //USER
   FETCH_USER_LIST:'/app-setting/user/grid',
   DELETE_USER:'/app-setting/user',
+  CREATE_USER:'/app-setting/user',
 }
 
 export { BASE_URL, LOGIN, APP_SETTING };

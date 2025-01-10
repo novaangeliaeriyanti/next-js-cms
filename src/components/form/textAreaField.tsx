@@ -18,7 +18,7 @@ export type InputFieldProps = {
 
 };
 
-export function InputField({
+export function TextAreaField({
   title,
   name,
   type = 'text',
@@ -48,19 +48,18 @@ export function InputField({
         render={({ field }) => (
           <FormItem>
             <FormControl>
-                <input
-                  type="text"
-                  id={name}
-                  placeholder={placeholder}
-                  {...field}
-                  className={cn(
-                    'border border-[#E5E5F0] rounded-xl p-3 focus-visible:ring-1 focus-visible:ring-[#E5E5F0] focus-visible:border-[#E5E5F0] outline-none w-full',
-                    fieldState.error
-                      ? 'border border-destructive text-destructive placeholder:text-destructive'
-                      : '',
-                    className
-                  )}
-                />
+            <textarea
+              id={name}
+              placeholder={placeholder}
+              {...field}
+              className={cn(
+                'border border-[#E5E5F0] rounded-xl p-3 focus-visible:ring-1 focus-visible:ring-[#E5E5F0] focus-visible:border-[#E5E5F0] outline-none w-full',
+                fieldState.error
+                  ? 'border border-destructive text-destructive placeholder:text-destructive'
+                  : '',
+                className
+              )}
+            ></textarea>
             </FormControl>
             <FormMessage />
           </FormItem>

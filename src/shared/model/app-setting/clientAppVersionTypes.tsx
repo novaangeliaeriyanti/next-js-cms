@@ -5,8 +5,7 @@ export type ClientAppVersionTableFields = {
 	id: number;
 	no: number;
 	client_app_type: string;
-	// version: string;
-	name:string;
+	version: string;
 	is_active: boolean;
 }
 
@@ -51,22 +50,16 @@ export const ClientAppTypeTableFields: filterParams[] = [
 		column_data_type: FILTER_DATA_TYPE.NUMERIC,
 		comparison: 'LIKE'
 	},
-	// {
-	// 	label: 'Client Type App',
-	// 	name: 'client_app_type',
-	// 	column_data_type: FILTER_DATA_TYPE.STRING,
-	// 	comparison: 'LIKE'
-	// },
-	// {
-	// 	label: 'Version',
-	// 	name: 'version',
-	// 	column_data_type: FILTER_DATA_TYPE.NUMERIC,
-	// 	comparison: 'LIKE'
-	// },
 	{
-		label: 'Name',
-		name: 'name',
+		label: 'Client Type App',
+		name: 'client_app_type',
 		column_data_type: FILTER_DATA_TYPE.STRING,
+		comparison: 'LIKE'
+	},
+	{
+		label: 'Version',
+		name: 'version',
+		column_data_type: FILTER_DATA_TYPE.NUMERIC,
 		comparison: 'LIKE'
 	},
 	{

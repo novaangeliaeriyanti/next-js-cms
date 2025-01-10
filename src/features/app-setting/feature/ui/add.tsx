@@ -24,7 +24,7 @@ function AppSettingFeatureAdd() {
 		const formData: FeatureFormFields = {
 			name: data.name,
 			path:data.path,
-			parent_feature:data.parent_feature,
+			parent_feature:data?.parent_feature?.parent_feature,
 			is_active: data.is_active,
 		}
 		handleCreate(formData);

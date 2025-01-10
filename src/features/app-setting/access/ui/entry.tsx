@@ -32,7 +32,6 @@ function AccessEntryForm({
 	});
 
 	const onSubmit: SubmitHandler<z.infer<typeof AccessSchema>> = (data) => {
-		console.log('onSubmit', data)
 		onFormSubmit && onFormSubmit(data);
 	};
 
@@ -44,8 +43,7 @@ function AccessEntryForm({
 	const goBack = () => {
 		router.replace(APPSETTING_ACCESS.LIST)
 	}
-
-
+	
 	return (
 		<>
 			<section className="flex flex-col flex-1 bg-white rounded-xl shadow-xl my-5 p-4 pb-60 overflow-y-auto max-h-screen ">
@@ -65,12 +63,11 @@ function AccessEntryForm({
 											placeholder='Name'
 											required
 										/>
-										<LookupRole name="role" />
-
+										<LookupRole name="role" columnChild={[]}/>
 									</div>
 									<div className='flex flex-col gap-3'>
-										<LookupEntity name="entity" />
-										<LookupFeature name="feature" />
+										<LookupEntity name="entity" columnChild={[]}/>
+										<LookupFeature name="feature" columnChild={[]}/>
 
 									</div>
 								</div>

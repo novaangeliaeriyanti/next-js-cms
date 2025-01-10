@@ -32,10 +32,8 @@ function AppSettingAccessAdd() {
 			role: data.role.name,
 			feature_id: data.feature.id,
 			feature: data.feature.name
-		}
-		// console.log('data fromdat', formData)
-		
-		// handleCreate(formData);
+		}		
+		handleCreate(formData);
 	}, [])
 
 	const goBack=() => {

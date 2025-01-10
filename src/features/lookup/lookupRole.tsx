@@ -36,11 +36,11 @@ const filterFields: filterParams[] = [
 ]
 
 type Props = {
-  name: string
+  name: string,
+  columnChild:any
 }
 
-export default function LookupRole({ name }:Props) {
-
+export default function LookupRole({ name, columnChild }:Props) {
   return (
     <InputLookup
       endPoint={APP_SETTING.FETCH_ROLE_LIST}
@@ -50,6 +50,7 @@ export default function LookupRole({ name }:Props) {
       name={name}
       placeholder="Role"
       required
+      columnChild={columnChild}
     />
   )
 }

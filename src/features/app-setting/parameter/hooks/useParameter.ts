@@ -1,12 +1,38 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { toast  } from '@/components/ui/use-toast';
 import {
+	createParameter,
 	deleteParameter,
 } from '@/shared/api/mutations/parameter';
 import useMutationHook from '@/shared/hooks/useMutationHook';
 import { APP_SETTING } from '@/shared/constants/endpoint';
 const useParameter = () => {
 	const queryClient = useQueryClient();
+
+	const mutationCreate = useMutationHook({
+		api: createParameter,
+		options: {
+			onError: (error: any) => {
+				toast({
+				  variant: 'destructive',
+				  title: 'Gagal Menambahkan Data',
+				  description: error?.message ?? 'Network Error',
+				});
+			},
+			onSuccess: () => {
+				toast({
+					variant: 'success',
+					title: "Success",
+					description:'Berhasil Menambahkan Data',
+				  })
+				queryClient.invalidateQueries({ queryKey: [`${APP_SETTING.FETCH_PARAMETER_LIST}`] });
+			},
+		},
+	});
+
+	const handleCreate = async (data: any) => {
+		return await mutationCreate.mutateAsync(data);
+	};
 
 	const mutationDelete = useMutationHook({
 		api: deleteParameter,
@@ -36,7 +62,9 @@ const useParameter = () => {
 
 	return {
 		mutationDelete,
-		handleDelete
+		mutationCreate,
+		handleDelete,
+		handleCreate
 	};
 };
 

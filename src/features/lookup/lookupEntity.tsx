@@ -34,11 +34,12 @@ const filterFields: filterParams[] = [
 ]
 
 type Props = {
-  name: string
+  name: string,
+  columnChild: any
 }
 
 
-export default function LookupEntity({ name }:Props) {
+export default function LookupEntity({ name, columnChild }:Props) {
   return (
     <InputLookup
       endPoint={APP_SETTING.FETCH_ENTITY_LIST}
@@ -48,6 +49,7 @@ export default function LookupEntity({ name }:Props) {
       name={name}
       placeholder="Entity"
       required
+      columnChild={columnChild}
     />
   )
 }

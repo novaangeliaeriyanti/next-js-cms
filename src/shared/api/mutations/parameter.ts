@@ -1,6 +1,15 @@
 import { APP_SETTING } from '@/shared/constants/endpoint';
 import { postData, putData, deleteData } from '@/shared/lib/axiosHelper';
 
+const createParameter = async (data: any) => {
+	const res = await postData({
+		endpoint: APP_SETTING.CREATE_PARAMETER,
+		data
+	});
+
+	return res?.data;
+};
+
 const deleteParameter = async ({id}: {id: string}) => {
 	const res = await deleteData({
 		endpoint: `${APP_SETTING.DELETE_PARAMETER}/${id}`
@@ -8,4 +17,4 @@ const deleteParameter = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteParameter };
+export { deleteParameter, createParameter };

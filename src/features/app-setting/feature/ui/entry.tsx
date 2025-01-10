@@ -10,6 +10,7 @@ import { CheckboxField } from '@/components/form/checkBoxField';
 import { Label } from '@/components/ui/label';
 import { FeatureSchema } from '../model/featureSchema';
 import { APPSETTING_FEATURE } from '@/shared/constants/path';
+import LookupParentFeature from '@/features/lookup/lookupParentFeature';
 
 type Params = {
 	initialData?: any;
@@ -65,11 +66,7 @@ function FeatureEntryForm({
 										
 									</div>
 									<div className='flex flex-col gap-3'>
-										<InputField
-											title="Parent Feature"
-											name="parent_feature"
-											placeholder="Parent Feature"
-										/>
+										<LookupParentFeature name='parent_feature' />
 										<div className='flex flex-col gap-3'>
 											<CheckboxField name="is_active" title="Is Active" />
 										</div>

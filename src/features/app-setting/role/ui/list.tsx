@@ -9,6 +9,7 @@ import { FaPlus } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import useRole from '../hooks/useRole';
 import { RoleFilterFields } from '@/shared/model/app-setting/roleTypes';
+import { APPSETTING_ROLE } from '@/shared/constants/path';
 
 export default function RoleList() {
   const { handleDelete, mutationDelete} = useRole();
@@ -27,7 +28,7 @@ export default function RoleList() {
             <p>Berikut adalah daftar role yang terdaftar di sistem</p>
           </div>
           <Button size="lg" className="flex gap-3"
-            // onClick={() => router.push(APPSETTING_CLIENT_APP_VERSION.ADD)}
+            onClick={() => router.push(APPSETTING_ROLE.ADD)}
           >
             <FaPlus />
             Tambah

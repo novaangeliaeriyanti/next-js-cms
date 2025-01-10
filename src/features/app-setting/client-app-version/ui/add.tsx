@@ -10,7 +10,7 @@ import LoadingOverlay from '@/components/ui/custom/loadingOverlay';
 
 function AppSettingClientAppVersionAdd() {
 	const dataClientAppVersion = {
-		name: '',
+		client_app_type: '',
 		version: '',
 		is_active: false
 	};
@@ -20,7 +20,7 @@ function AppSettingClientAppVersionAdd() {
 
 	const onFormSubmit = useCallback((data: any) => {
 		const formData: ClientAppVersionFormFields = {
-			client_app_type: data.client_app_type,
+			client_app_type: data?.client_app_type?.client_app_type,
 			version: Number(data?.version),
 			is_active: data.is_active,
 		}

@@ -32,7 +32,7 @@ export const columnDef = [
     cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
   }),
   columnHelper.accessor('process_name', {
-    header: 'Requestor Name',
+    header: 'Process Name',
     cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
   }),
   columnHelper.accessor('internal_data_source', {
