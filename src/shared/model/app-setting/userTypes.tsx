@@ -29,12 +29,14 @@ export type UserTableFields = {
 }
 
 export interface UserFormFields {
-	id: number;
-	no: number;
+	id?: number;
+	no?: number;
+	identity_id:number,
 	name: string;
 	email: string;
 	mobile_phone: string;
 	role: string;
+	role_id: string;
 	password: string;
 	salt: string;
 	device_info: string;

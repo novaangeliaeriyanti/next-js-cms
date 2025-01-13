@@ -17,6 +17,12 @@ export default function FeatureList() {
   const onRowDelete = (row: any) => {
     handleDelete({ id: row.id })
   }
+
+  const onRowEdit = (row: any) => {
+    router.push(
+      `${APPSETTING_FEATURE.UPDATE}/${row.id}`
+    );
+  }
   
   return (
     <div className="mt-4">
@@ -40,6 +46,7 @@ export default function FeatureList() {
           columnDef={columnDef}
           filterFields={FeatureFilterFields}
           onRowDelete={onRowDelete}
+          onRowEdit={onRowEdit}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

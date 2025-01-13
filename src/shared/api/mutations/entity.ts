@@ -10,6 +10,15 @@ const createEntity = async (data: any) => {
 	return res?.data;
 };
 
+const updateEntity = async ({data}: {data: any}) => {
+	const res = await putData({
+		endpoint: `${APP_SETTING.UPDATE_ENTITY}`,
+		data
+	});
+
+	return res?.data;
+};
+
 const deleteEntity = async ({id}: {id: string}) => {
 	const res = await deleteData({
 		endpoint: `${APP_SETTING.DELETE_ENTITY}/${id}`
@@ -17,4 +26,4 @@ const deleteEntity = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteEntity, createEntity };
+export { deleteEntity, updateEntity, createEntity };

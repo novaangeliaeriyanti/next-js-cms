@@ -17,6 +17,12 @@ export default function TaskScheduleList() {
   const onRowDelete = (row: any) => {
     handleDelete({ id: row.id })
   }
+
+  const onRowEdit = (row: any) => {
+    router.push(
+      `${APPSETTING_TASK_SCHEDULE.UPDATE}/${row.id}`
+    );
+  }
   
   return (
     <div className="mt-4">
@@ -40,6 +46,7 @@ export default function TaskScheduleList() {
           columnDef={columnDef}
           filterFields={TaskScheduleFilterFields}
           onRowDelete={onRowDelete}
+          onRowEdit={onRowEdit}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

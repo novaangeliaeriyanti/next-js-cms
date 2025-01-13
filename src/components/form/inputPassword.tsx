@@ -20,6 +20,8 @@ type InputPasswordProps = {
   description?: string | JSX.Element;
   errorMessage?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add this to the props
+  title?: string,
+  required?: boolean,
 };
 
 export function InputPassword({
@@ -28,6 +30,8 @@ export function InputPassword({
   description,
   errorMessage = true,
   onChange, // Destructure the onChange prop
+  title,
+  required,
   ...props
 }: InputPasswordProps) {
   const { control, getFieldState } = useFormContext();
@@ -41,26 +45,33 @@ export function InputPassword({
         <FormItem>
           <FormControl>
             <Box className='relative'>
-              <Input
-                {...field}
-                type={passwordVisibility ? 'text' : 'password'}
-                autoComplete='on'
-                placeholder={placeholder}
-                className={`pr-12 ${getFieldState(name).error && 'border border-destructive text-destructive'}`}
-                onChange={(e) => {
-                  field.onChange(e); // Call the original onChange from react-hook-form
-                  if (onChange) onChange(e); // Call the custom onChange if provided
-                }}
-                {...props}
-              />
-              <Box
-                className='absolute inset-y-0 right-0 flex cursor-pointer items-center p-3 text-muted-foreground'
-                onClick={() => setPasswordVisibility(!passwordVisibility)}
-              >
-                {createElement(passwordVisibility ? PiEyeSlash : PiEye, {
-                  className: `${getFieldState(name).error && 'text-primary'} h-6 w-6`,
-                })}
-              </Box>
+            {title &&
+              <label htmlFor={name}>
+                {title} {required && <span className="text-red-500">*</span>}
+              </label>
+            }
+              <div className='flex flex-row justify-center align-middle'>
+                <Input
+                  {...field}
+                  type={passwordVisibility ? 'text' : 'password'}
+                  autoComplete='on'
+                  placeholder={placeholder}
+                  className={`pr-12 ${getFieldState(name).error && 'border border-destructive text-destructive'}`}
+                  onChange={(e) => {
+                    field.onChange(e); // Call the original onChange from react-hook-form
+                    if (onChange) onChange(e); // Call the custom onChange if provided
+                  }}
+                  {...props}
+                />
+                <Box
+                  className='absolute inset-y-0 right-0 flex cursor-pointer items-end p-3 text-muted-foreground'
+                  onClick={() => setPasswordVisibility(!passwordVisibility)}
+                >
+                  {createElement(passwordVisibility ? PiEyeSlash : PiEye, {
+                    className: `${getFieldState(name).error && 'text-primary'} h-6 w-6`,
+                  })}
+                </Box>
+              </div>
             </Box>
           </FormControl>
           {errorMessage && <FormMessage />}

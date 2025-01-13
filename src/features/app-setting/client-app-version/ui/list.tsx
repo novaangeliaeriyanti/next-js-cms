@@ -14,11 +14,11 @@ import { Button } from '@/components/ui/button';
 export default function ClientAppVersionList() {
   const { handleDelete, mutationDelete} = useClientAppVersion();
 
-  // const onRowEdit = (row: any) => {
-  //   router.push(
-  //     `${APPSETTING_ACCESS.UPDATE}/${row.id}`
-  //   );
-  // }
+  const onRowEdit = (row: any) => {
+    router.push(
+      `${APPSETTING_CLIENT_APP_VERSION.UPDATE}/${row.id}`
+    );
+  }
 
   const onRowDelete = (row: any) => {
     handleDelete({ id: row.id })
@@ -45,7 +45,7 @@ export default function ClientAppVersionList() {
           endPoint={APP_SETTING.FETCH_CLIENT_APP_VERSION_LIST}
           columnDef={columnDef}
           filterFields={ClientAppVersionFilterFields}
-          // onRowEdit={onRowEdit}
+          onRowEdit={onRowEdit}
           onRowDelete={onRowDelete}
         />
       </div>

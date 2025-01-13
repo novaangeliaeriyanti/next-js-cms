@@ -5,6 +5,8 @@ export const ParameterSchema = z.object({
 		.string()
 		.min(1, { message: 'Nama wajib diisi' })
 		.max(255, { message: 'Maksimal 255 karakter' }),
+	description: z
+		.string(),
 	is_active: z.
 		boolean().default(false).optional(),
 });

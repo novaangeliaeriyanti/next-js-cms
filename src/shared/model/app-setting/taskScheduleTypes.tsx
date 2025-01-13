@@ -16,6 +16,7 @@ export type TaskScheduleTableFields = {
 }
 
 export interface TaskScheduleFormFields {
+	id?: number;
 	requestor_name: string;
 	requestor_email: string;
 	service_name: string;

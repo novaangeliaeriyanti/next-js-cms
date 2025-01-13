@@ -17,6 +17,12 @@ export default function EntityList() {
   const onRowDelete = (row: any) => {
     handleDelete({ id: row.id })
   }
+
+  const onRowEdit = (row: any) => {
+    router.push(
+      `${APPSETTING_ENTITY.UPDATE}/${row.id}`
+    );
+  }
   
   return (
     <div className="mt-4">
@@ -40,6 +46,7 @@ export default function EntityList() {
           columnDef={columnDef}
           filterFields={EntityFilterFields}
           onRowDelete={onRowDelete}
+          onRowEdit={onRowEdit}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

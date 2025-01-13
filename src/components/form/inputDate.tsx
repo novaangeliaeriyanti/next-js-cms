@@ -5,9 +5,8 @@ import { useFormContext } from "react-hook-form";
 import { Input } from "../ui/input";
 import { cn } from "@/shared/lib/utils";
 import { FormControl, FormField, FormItem } from "./form";
-import { CalendarDays } from 'lucide-react';
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, X } from 'lucide-react';
+import { format, parseISO } from "date-fns";
 import { Calendar } from "@/components/ui/calendar"
 import {
   Popover,
@@ -19,6 +18,7 @@ import { formatDate, isEmpty } from '@/shared/hooks/useValidate';
 export interface InputDateProps<T> extends React.InputHTMLAttributes<HTMLInputElement> {
 	title: string;
 	name: string,
+	dateDisabledEnd?:any
 }
 
 export function InputDate<T,>({
@@ -26,6 +26,7 @@ export function InputDate<T,>({
 	name,
 	required,
 	placeholder,
+	dateDisabledEnd,
 	...props
 }: InputDateProps<T>) {
 
@@ -36,9 +37,15 @@ export function InputDate<T,>({
 	const { control } = useFormContext();
 
 	useEffect(() => {
-		setOpenModal(false)
-	}, [date])
+		if (date) {
+		  const utcDate = new Date(date).toISOString();
+		  setValue(name, utcDate);
+		  setOpenModal(false)
+		}
+	}, [date, setValue, name]);
 	
+	const formattedDate = getValues(name) ? formatDate(getValues(name)) : "";
+
 	return (
 		<div className="flex flex-row items-end gap-1">
 			<div
@@ -64,7 +71,7 @@ export function InputDate<T,>({
 											placeholder="Pilih Tanggal"
 											readOnly
 											type="text"
-											value={!isEmpty(date) ? formatDate({date}) : ''}
+											value={!isEmpty(date) ? formattedDate : ''}
 											className={cn(
 												errors[name as string]?.id?.message &&
 													'border border-destructive text-destructive placeholder:text-destructive'
@@ -83,16 +90,29 @@ export function InputDate<T,>({
 												<CalendarIcon stroke='white' />
 												</Button>
 											</PopoverTrigger>
-											<PopoverContent className="w-auto p-0" align="start">
+											<PopoverContent className="popover-content" align="start">
 												<Calendar
 												mode="single"
 												selected={date}
 												onSelect={setDate}
 												initialFocus
+												className='datepicker'
+												dateDisabledEnd={dateDisabledEnd}
 												/>
 											</PopoverContent>
-											</Popover>
-										</div>
+										</Popover>
+										<Button
+											variant={!isEmpty(date) ? "destructive" : "secondary"}
+											onClick={() => { 
+												if(!isEmpty(date)){
+													setDate(undefined);
+													setValue(name, '');  
+												}
+											}}
+											>
+												<X stroke='white' />
+										</Button>
+									</div>
 									{errors[name as string] && (
 										<p className="text-red-500">{`${errors[name as string]?.id?.message}`}</p>
 									)}

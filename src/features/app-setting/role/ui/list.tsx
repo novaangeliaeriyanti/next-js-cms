@@ -17,6 +17,12 @@ export default function RoleList() {
   const onRowDelete = (row: any) => {
     handleDelete({ id: row.id })
   }
+
+  const onRowEdit = (row: any) => {
+    router.push(
+      `${APPSETTING_ROLE.UPDATE}/${row.id}`
+    );
+  }
   
   return (
     <div className="mt-4">
@@ -40,6 +46,7 @@ export default function RoleList() {
           columnDef={columnDef}
           filterFields={RoleFilterFields}
           onRowDelete={onRowDelete}
+          onRowEdit={onRowEdit}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

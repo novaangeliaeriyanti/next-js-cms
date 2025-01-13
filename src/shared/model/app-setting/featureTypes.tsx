@@ -11,9 +11,11 @@ export type FeatureTableFields = {
 }
 
 export interface FeatureFormFields {
+	id?: number;
 	name: string;
 	path: string;
 	parent_feature: string;
+	parent_feature_id?:string;
 	is_active: boolean;
 }
 

@@ -1,4 +1,4 @@
-import { isEmpty } from '@/shared/hooks/useValidate';
+import { formatDate, isEmpty } from '@/shared/hooks/useValidate';
 import { TaskScheduleTableFields } from '@/shared/model/app-setting/taskScheduleTypes';
 import { createColumnHelper } from '@tanstack/react-table';
 
@@ -41,15 +41,15 @@ export const columnDef = [
   }),
   columnHelper.accessor('register_date', {
     header: 'Register Date',
-    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
+    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? formatDate(info.getValue()) : '-'}</div>
   }),
   columnHelper.accessor('execute_date', {
     header: 'Execute Date',
-    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
+    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? formatDate(info.getValue()) : '-'}</div>
   }),
   columnHelper.accessor('finish_date', {
     header: 'Finish Date',
-    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
+    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? formatDate(info.getValue()) : '-'}</div>
   }),
   columnHelper.accessor('result', {
     header: 'Result',

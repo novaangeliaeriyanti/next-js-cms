@@ -23,7 +23,7 @@ export interface InputLookupProps<T> extends React.InputHTMLAttributes<HTMLInput
 	columnDef: ColumnDef<T, any>[]
 	filterFields: filterParams[],
 	onSelect?: (row: any) => void,
-	columnChild: any,
+	columnChild?: any,
 }
 
 export function InputLookup<T,>({

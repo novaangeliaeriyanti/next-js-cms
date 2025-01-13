@@ -40,6 +40,7 @@ function ParameterEntryForm({
 	const goBack = () => {
 		router.replace(APPSETTING_PARAMETER.LIST)
 	}
+
 	return (
 		<>
 			<section className="flex flex-col flex-1 bg-white rounded-xl shadow-xl my-5 p-4 pb-60 overflow-y-auto max-h-screen ">
@@ -60,7 +61,7 @@ function ParameterEntryForm({
 										/>
 										<InputField
 											title="Description"
-											name="decription"
+											name="description"
 											placeholder="Description"
 										/>
 									</div>

@@ -9,6 +9,7 @@ export type ClientAppTypeTableFields = {
 }
 
 export interface ClientAppTypeFormFields {
+	id?: number;
 	client_app_type:string;
 	is_active: boolean;
 }

@@ -17,6 +17,12 @@ export default function ParameterList() {
   const onRowDelete = (row: any) => {
     handleDelete({ id: row.id })
   }
+
+  const onRowEdit = (row: any) => {
+    router.push(
+      `${APPSETTING_PARAMETER_ITEM.UPDATE}/${row.id}`
+    );
+  }
   
   return (
     <div className="mt-4">
@@ -40,6 +46,7 @@ export default function ParameterList() {
           columnDef={columnDef}
           filterFields={ParameterItemFilterFields}
           onRowDelete={onRowDelete}
+          onRowEdit={onRowEdit}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

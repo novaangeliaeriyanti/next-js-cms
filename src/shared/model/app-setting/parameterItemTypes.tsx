@@ -19,6 +19,7 @@ export type ParameterItemParameterTableFields = {
 }
 
 export interface ParameterItemFormFields {
+	id?: number;
 	name: string;
 	value: string;
 	parameter: string;

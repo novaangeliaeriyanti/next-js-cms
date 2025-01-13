@@ -47,9 +47,8 @@ const filterFields: filterParams[] = [
 ]
 type Props = {
 	name: string,
-	columnChild: any
 }
-export default function LookupParameter({ name, columnChild }: Props) {
+export default function LookupParameter({ name }: Props) {
 
 	return (
 		<InputLookup
@@ -60,7 +59,6 @@ export default function LookupParameter({ name, columnChild }: Props) {
 			name={name}
 			placeholder="Parameter"
 			required
-			columnChild={columnChild}
 		/>
 	)
 }

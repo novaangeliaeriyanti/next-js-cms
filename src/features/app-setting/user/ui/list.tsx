@@ -9,12 +9,19 @@ import { FaPlus } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { UserFilterFields } from '@/shared/model/app-setting/userTypes';
 import useUser from '../hooks/useUser';
+import { APPSETTING_USER } from '@/shared/constants/path';
 
 export default function RoleList() {
   const { handleDelete, mutationDelete} = useUser();
 
   const onRowDelete = (row: any) => {
     handleDelete({ id: row.id })
+  }
+
+  const onRowEdit = (row: any) => {
+    router.push(
+      `${APPSETTING_USER.UPDATE}/${row.id}`
+    );
   }
   
   return (
@@ -27,7 +34,7 @@ export default function RoleList() {
             <p>Berikut adalah daftar user yang terdaftar di sistem</p>
           </div>
           <Button size="lg" className="flex gap-3"
-            // onClick={() => router.push(APPSETTING_CLIENT_APP_VERSION.ADD)}
+            onClick={() => router.push(APPSETTING_USER.ADD)}
           >
             <FaPlus />
             Tambah
@@ -39,6 +46,7 @@ export default function RoleList() {
           columnDef={columnDef}
           filterFields={UserFilterFields}
           onRowDelete={onRowDelete}
+          onRowEdit={onRowEdit}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

@@ -10,6 +10,14 @@ const createParameterItem = async (data: any) => {
 	return res?.data;
 };
 
+const updateParameterItem = async ({data}: {data: any}) => {
+	const res = await putData({
+		endpoint: `${APP_SETTING.UPDATE_PARAMETER_ITEM}`,
+		data
+	});
+
+	return res?.data;
+};
 
 const deleteParameterItem = async ({id}: {id: string}) => {
 	const res = await deleteData({
@@ -18,4 +26,4 @@ const deleteParameterItem = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteParameterItem, createParameterItem };
+export { deleteParameterItem, createParameterItem, updateParameterItem };

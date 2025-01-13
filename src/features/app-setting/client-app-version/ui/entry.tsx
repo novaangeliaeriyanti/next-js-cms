@@ -55,7 +55,7 @@ function ClientAppVersionEntryForm({
 								<div className="grid md:grid-cols-2 w-full gap-3 ">
 									<div className='flex flex-col gap-3'>
 										<div className="grid w-full gap-3 ">
-											<LookupClientAppType name='client_app_type' columnChild={[]} />
+											<LookupClientAppType name='client_app_type'/>
 										</div>
 										<InputField
 											title="Version"

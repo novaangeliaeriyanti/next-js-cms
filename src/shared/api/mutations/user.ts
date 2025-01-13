@@ -10,6 +10,14 @@ const createUser = async (data: any) => {
 	return res?.data;
 };
 
+const updateUser = async ({data}: {data: any}) => {
+	const res = await putData({
+		endpoint: `${APP_SETTING.UPDATE_USER}`,
+		data
+	});
+
+	return res?.data;
+};
 
 const deleteUser = async ({id}: {id: string}) => {
 	const res = await deleteData({
@@ -18,4 +26,4 @@ const deleteUser = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteUser, createUser };
+export { deleteUser, createUser, updateUser };

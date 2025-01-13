@@ -11,10 +11,9 @@ import FeatureEntryForm from './entry';
 function AppSettingFeatureAdd() {
 	const dataEntity = {
 		name: '',
-		allow_access_web: false,
-		allow_access_mobile: false,
-		allow_access_engine: false,
-		unique_key:''
+		path: '',
+		parent_feature: { id: null, name: null },
+		is_active: false,
 	};
 
 	const { handleCreate, mutationCreate } = useFeature();
@@ -24,7 +23,8 @@ function AppSettingFeatureAdd() {
 		const formData: FeatureFormFields = {
 			name: data.name,
 			path:data.path,
-			parent_feature:data?.parent_feature?.parent_feature,
+			parent_feature:data?.parent_feature?.name,
+			parent_feature_id:data?.parent_feature?.id,
 			is_active: data.is_active,
 		}
 		handleCreate(formData);

@@ -9,6 +9,14 @@ const createRole = async (data: any) => {
 	return res?.data;
 };
 
+const updateRole = async ({data}: {data: any}) => {
+	const res = await putData({
+		endpoint: `${APP_SETTING.UPDATE_ROLE}`,
+		data
+	});
+
+	return res?.data;
+};
 
 const deleteRole = async ({id}: {id: string}) => {
 	const res = await deleteData({
@@ -17,4 +25,4 @@ const deleteRole = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteRole, createRole };
+export { deleteRole, createRole, updateRole };

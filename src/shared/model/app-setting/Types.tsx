@@ -16,6 +16,7 @@ export interface FeatureFormFields {
 	name: string;
 	path: string;
 	parent_feature: string;
+	parent_feature_id?: number;
 	is_active: boolean;
 }
 

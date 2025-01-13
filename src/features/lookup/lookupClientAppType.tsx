@@ -40,10 +40,9 @@ const filterFields: filterParams[] = [
 
 type Props = {
   name: string,
-  columnChild: any
 }
 
-export default function LookupClientAppType({ name, columnChild}:Props) {
+export default function LookupClientAppType({ name }:Props) {
   return (
     <InputLookup
       endPoint={APP_SETTING.FETCH_CLIENT_APP_TYPE}
@@ -53,7 +52,6 @@ export default function LookupClientAppType({ name, columnChild}:Props) {
       name={name}
       placeholder="Client App Type"
       required
-      columnChild={columnChild}
     />
   )
 }

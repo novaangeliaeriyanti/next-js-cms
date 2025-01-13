@@ -59,7 +59,7 @@ function ParameterItemEntryForm({
 											placeholder='Name'
 											required
 										/>
-										<LookupParameter name='parameter' columnChild={[]}/>
+										<LookupParameter name='parameter'/>
 									</div>
 									<div className='flex flex-col gap-3'>
 										<InputField

@@ -12,6 +12,7 @@ export type EntityTableFields = {
 }
 
 export interface EntityFormFields {
+	id?: number;
 	name: string;
 	allow_access_web: boolean;
 	allow_access_mobile: boolean;

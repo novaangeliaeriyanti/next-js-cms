@@ -1,4 +1,4 @@
-import { isEmpty } from '@/shared/hooks/useValidate';
+import { formatDate, isEmpty } from '@/shared/hooks/useValidate';
 import { UserTableFields } from '@/shared/model/app-setting/userTypes';
 import { createColumnHelper } from '@tanstack/react-table';
 
@@ -75,11 +75,11 @@ export const columnDef = [
   }),
   columnHelper.accessor('created_date', {
     header: 'Created Date',
-    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
+    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? formatDate(info.getValue()) : '-'}</div>
   }),
   columnHelper.accessor('last_login', {
     header: 'Last Login',
-    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
+    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? formatDate(info.getValue()) : '-'}</div>
   }),
   columnHelper.accessor('access_token', {
     header: 'Access Token',

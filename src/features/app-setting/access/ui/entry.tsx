@@ -63,11 +63,11 @@ function AccessEntryForm({
 											placeholder='Name'
 											required
 										/>
-										<LookupRole name="role" columnChild={[]}/>
+										<LookupRole name="role"/>
 									</div>
 									<div className='flex flex-col gap-3'>
-										<LookupEntity name="entity" columnChild={[]}/>
-										<LookupFeature name="feature" columnChild={[]}/>
+										<LookupEntity name="entity"/>
+										<LookupFeature name="feature"/>
 
 									</div>
 								</div>

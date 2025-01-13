@@ -8,9 +8,10 @@ import {
 } from '@/components/form/form';
 import { cn } from '@/shared/lib/utils';
 import { Input } from '../ui/input';
+import { useEffect, useState } from 'react';
 export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string,
-  containerClassName?: string
+  containerClassName?: string,
 };
 
 export function InputField({
@@ -22,7 +23,7 @@ export function InputField({
   ...props
 
 }: InputFieldProps) {
-  const { control, getFieldState } = useFormContext();
+  const { control, getFieldState, setValue } = useFormContext();
   const fieldState = getFieldState(name as string);
 
   return (
@@ -43,17 +44,17 @@ export function InputField({
         render={({ field }) => (
           <FormItem>
             <FormControl>
-            <Input 
-              {...field}
-              id={name}
-              className={cn(
-                className,
-                fieldState.error
-                  ? 'border border-destructive text-destructive placeholder:text-destructive'
-                  : '',
-              )}
-              {...props}
-            />
+                <Input 
+                {...field}
+                id={name}
+                className={cn(
+                  className,
+                  fieldState.error
+                    ? 'border border-destructive text-destructive placeholder:text-destructive'
+                    : '',
+                )}
+                {...props}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod';
 import router, { useRouter } from 'next/router';
 import { InputField } from '@/components/form/inputField';
-import { TaskScheduleSchema } from '../model/roleSchema';
+import { TaskScheduleSchema } from '../model/taskScheduleSchema';
 import { APPSETTING_TASK_SCHEDULE } from '@/shared/constants/path';
 import { TextAreaField } from '@/components/form/textAreaField';
 import { InputDate } from '@/components/form/inputDate';
@@ -40,7 +40,6 @@ function TaskScheduleEntryForm({
 	const goBack = () => {
 		router.replace(APPSETTING_TASK_SCHEDULE.LIST)
 	}
-	console.log('value ',form.getValues())
 	return (
 		<>
 			<section className="flex flex-col flex-1 bg-white rounded-xl shadow-xl my-5 p-4 pb-60 overflow-y-auto max-h-screen ">
@@ -92,6 +91,8 @@ function TaskScheduleEntryForm({
 											required
 										/>
 										<InputDate title="Register Date" name="register_date"/>
+										<InputDate title="Execute Date" name="execute_date" dateDisabledEnd={form?.watch('register_date')}/>
+										<InputDate title="Finish Date" name="finish_date" dateDisabledEnd={form?.watch('register_date')}/>
 									</div>
 								</div> 
 							</div>

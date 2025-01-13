@@ -10,6 +10,15 @@ const createFeature = async (data: any) => {
 	return res?.data;
 };
 
+const updateFeature = async ({data}: {data: any}) => {
+	const res = await putData({
+		endpoint: `${APP_SETTING.UPDATE_FEATURE}`,
+		data
+	});
+
+	return res?.data;
+};
+
 const deleteFeature = async ({id}: {id: string}) => {
 	const res = await deleteData({
 		endpoint: `${APP_SETTING.DELETE_FEATURE}/${id}`
@@ -17,4 +26,4 @@ const deleteFeature = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteFeature, createFeature };
+export { deleteFeature, createFeature, updateFeature };
