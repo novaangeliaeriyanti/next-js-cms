@@ -3,13 +3,13 @@ import { Button } from '@/components/ui/button';
 import { FaLeftLong } from 'react-icons/fa6';
 import { useRouter } from 'next/router';
 import useFetchById from '@/shared/hooks/useFetchById';
-import { APP_SETTING } from '@/shared/constants/endpoint';
-import { APPSETTING_CLIENT_APP_VERSION } from '@/shared/constants/path';
-import ClientAppVersionEntryForm from './entry';
-import useClientAppVersion from '../hooks/useClientAppVersion';
-import { ClientAppVersionFormFields } from '@/shared/model/app-setting/clientAppVersionTypes';
+import { MASTER_DATA } from '@/shared/constants/endpoint';
+import CompanyEntryForm from './entry';
+import { MASTERDATA_COMPANY } from '@/shared/constants/path';
+import { CompanyFormFields } from '@/shared/model/master-data/companyTypes';
+import useCompany from '../hooks/useCompany';
 
-function AppSettingClientAppVersionUpdate() {
+function MasterDataCompanyUpdate() {
   const router = useRouter()
   const {
     query: { id },
@@ -19,26 +19,24 @@ function AppSettingClientAppVersionUpdate() {
   const toSchema = (data: any) => {
     data = {
       ...data,
-      client_app_type: {
-        client_app_type: data?.client_app_type,
-      },
+      invoice_due_date: new Date(data?.invoice_due_date * 1000)?.toLocaleString()
     }
 
     return data;
 
   }
 
-  const { data, isLoading } = useFetchById(APP_SETTING.FETCH_CLIENT_APP_VERSION_BY_ID, id as string);
-  const dataClientAppVersion = toSchema((data as any));
-  const { handleUpdate, mutationUpdate } = useClientAppVersion();
+  const { data, isLoading } = useFetchById(MASTER_DATA.FETCH_COMPANY_BY_ID, id as string);
+  const dataCompany = toSchema((data as any));
+  const { handleUpdate, mutationUpdate } = useCompany();
 	const { isPending, isError, error,isSuccess } = mutationUpdate;
 
   const onFormSubmit = (data: any) => {
-		const formData: ClientAppVersionFormFields = {
-      id:dataClientAppVersion?.id,
-      client_app_type: data?.client_app_type?.client_app_type,
-			version: Number(data?.version),
-			is_active: data.is_active,
+		const formData: CompanyFormFields = {
+      id: dataCompany?.id,
+			name: data.name,
+			is_vendor: data.is_vendor,
+      invoice_due_date: Math.floor(new Date(data?.invoice_due_date).getTime()/ 1000)
 		}		
 		handleUpdate({
       data: formData
@@ -46,7 +44,7 @@ function AppSettingClientAppVersionUpdate() {
 	}
 
   const goBack=useCallback(() => {
-		router.replace(APPSETTING_CLIENT_APP_VERSION.LIST)
+		router.replace(MASTERDATA_COMPANY.LIST)
 	}, [router])
 
   useEffect(() => {
@@ -65,13 +63,13 @@ function AppSettingClientAppVersionUpdate() {
           >
             <FaLeftLong />
           </Button>
-          <h1>Edit Client App Version</h1>
+          <h1>Edit Company</h1>
         </div>
       </section>
       {isLoading
         ? <div>Loading</div>
-        : <ClientAppVersionEntryForm
-          initialData={dataClientAppVersion}
+        : <CompanyEntryForm
+          initialData={dataCompany}
           onFormSubmit={onFormSubmit}
           isPending={isPending}
         />
@@ -80,4 +78,4 @@ function AppSettingClientAppVersionUpdate() {
   );
 }
 
-export default AppSettingClientAppVersionUpdate;
+export default MasterDataCompanyUpdate;

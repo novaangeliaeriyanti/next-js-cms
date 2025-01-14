@@ -7,7 +7,7 @@ import { ClientAppVersionTableFields } from "@/shared/model/app-setting/clientAp
 
 const columnHelper = createColumnHelper<ClientAppVersionTableFields>();
 
-const columnRoleDef = [
+const columnClientAppTypeDef = [
   columnHelper.accessor('no', {
     enableSorting: false,
     header: 'No',
@@ -46,7 +46,7 @@ export default function LookupClientAppType({ name }:Props) {
   return (
     <InputLookup
       endPoint={APP_SETTING.FETCH_CLIENT_APP_TYPE}
-      columnDef={columnRoleDef}
+      columnDef={columnClientAppTypeDef}
       filterFields={filterFields}
       title="Client App Type"
       name={name}

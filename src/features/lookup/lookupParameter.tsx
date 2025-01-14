@@ -7,7 +7,7 @@ import { ParameterItemParameterTableFields } from "@/shared/model/app-setting/pa
 
 const columnHelper = createColumnHelper<ParameterItemParameterTableFields>();
 
-const columnRoleDef = [
+const columnParameterDef = [
 	columnHelper.accessor('no', {
 		enableSorting: false,
 		header: 'No',
@@ -53,7 +53,7 @@ export default function LookupParameter({ name }: Props) {
 	return (
 		<InputLookup
 			endPoint={APP_SETTING.FETCH_PARAMETER}
-			columnDef={columnRoleDef}
+			columnDef={columnParameterDef}
 			filterFields={filterFields}
 			title="Parameter"
 			name={name}

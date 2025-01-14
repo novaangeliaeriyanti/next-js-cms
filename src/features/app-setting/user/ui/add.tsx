@@ -57,6 +57,7 @@ function AppSettingUserAdd() {
 			is_active: data?.is_active,
 			is_lock: data?.is_lock,
 			created_date: data?.created_date,
+			create_date: data?.created_date,
 			last_login: data?.last_login,
 			access_token: data?.access_token,
 			refresh_token: data?.refresh_token,

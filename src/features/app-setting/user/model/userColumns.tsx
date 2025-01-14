@@ -73,7 +73,7 @@ export const columnDef = [
     header: 'Is Lock',
     cell: (info) => <div className='text-center'>{info.getValue() ? 'Yes' : 'No'}</div>
   }),
-  columnHelper.accessor('created_date', {
+  columnHelper.accessor('create_date', {
     header: 'Created Date',
     cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? formatDate(info.getValue()) : '-'}</div>
   }),

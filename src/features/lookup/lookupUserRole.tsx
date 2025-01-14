@@ -7,7 +7,7 @@ import { FILTER_DATA_TYPE } from "@/shared/constants/dataType";
 
 const columnHelper = createColumnHelper<RoleTableFields>();
 
-const columnRoleDef = [
+const columnUserRoleDef = [
   columnHelper.accessor('no', {
     enableSorting: false,
     header: 'No',
@@ -58,7 +58,7 @@ export default function LookupUserRole({ name }:Props) {
   return (
     <InputLookup
       endPoint={APP_SETTING.FETCH_ROLE_LIST}
-      columnDef={columnRoleDef}
+      columnDef={columnUserRoleDef}
       filterFields={filterFields}
       title="Role"
       name={name}

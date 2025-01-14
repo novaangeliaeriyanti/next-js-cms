@@ -71,4 +71,21 @@ const APP_SETTING = {
   FETCH_EMPLOYEE_LIST: "/master-data/employee/paging"
 }
 
-export { BASE_URL, LOGIN, APP_SETTING };
+const MASTER_DATA = {
+  //COMPANY
+  FETCH_COMPANY_LIST:'/master-data/company/paging',
+  FETCH_COMPANY_BY_ID: `/master-data/company`,
+  CREATE_COMPANY: `/master-data/company`,
+  UPDATE_COMPANY: `/master-data/company`,
+  DELETE_COMPANY: `/master-data/company`,
+
+  //EMPLOYEE
+  FETCH_EMPLOYEE_LIST:'/master-data/employee/paging',
+  FETCH_EMPLOYEE_BY_ID: `/master-data/employee`,
+  CREATE_EMPLOYEE: `/master-data/employee`,
+  UPDATE_EMPLOYEE: `/master-data/employee`,
+  DELETE_EMPLOYEE: `/master-data/employee`,
+
+}
+
+export { BASE_URL, LOGIN, APP_SETTING, MASTER_DATA };

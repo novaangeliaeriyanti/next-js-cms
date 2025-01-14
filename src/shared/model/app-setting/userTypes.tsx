@@ -17,7 +17,8 @@ export type UserTableFields = {
 	longitude: number;
 	is_active: boolean;
 	is_lock: boolean;
-	created_date: string;
+	created_date?: string;
+	create_date?: string;
 	last_login: string;
 	access_token: string;
 	refresh_token: string;
@@ -46,7 +47,8 @@ export interface UserFormFields {
 	longitude: number;
 	is_active: boolean;
 	is_lock: boolean;
-	created_date: string;
+	created_date?: string;
+	create_date?: string;
 	last_login: string;
 	access_token: string;
 	refresh_token: string;

@@ -112,7 +112,6 @@ function UserEntryForm({
 													e.preventDefault();
 												}
 											}}
-											// location
 										/>
 									</div>
 									<div className='flex flex-col gap-3'>
@@ -126,7 +125,6 @@ function UserEntryForm({
 													e.preventDefault();
 												}
 											  }}
-											// location
 										/>
 										<CheckboxField name="is_active" title="Is Active" />
 										<CheckboxField name="is_lock" title="Is Lock" />

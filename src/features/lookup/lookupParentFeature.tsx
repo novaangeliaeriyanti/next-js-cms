@@ -7,7 +7,7 @@ import { ParentFeatureTableFields } from "@/shared/model/app-setting/parentFeatu
 
 const columnHelper = createColumnHelper<ParentFeatureTableFields>();
 
-const columnRoleDef = [
+const columnParentFeatureDef = [
   columnHelper.accessor('no', {
     enableSorting: false,
     header: 'No',
@@ -60,7 +60,7 @@ export default function LookupParentFeature({ name }:Props) {
   return (
     <InputLookup
       endPoint={APP_SETTING.FETCH_PARENT_FEATURE}
-      columnDef={columnRoleDef}
+      columnDef={columnParentFeatureDef}
       filterFields={filterFields}
       title="Parent Feature"
       name={name}

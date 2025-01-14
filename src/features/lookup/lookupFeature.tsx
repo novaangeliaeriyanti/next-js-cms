@@ -7,7 +7,7 @@ import { FILTER_DATA_TYPE, COMPARISON } from "@/shared/constants/dataType";
 
 const columnHelper = createColumnHelper<FeatureTableFields>();
 
-const columnRoleDef = [
+const columnFeatureDef = [
 	columnHelper.accessor('no', {
 		enableSorting: false,
 		header: 'No',
@@ -47,7 +47,7 @@ export default function LookupFeature({ name }: Props) {
 	return (
 		<InputLookup
 			endPoint={APP_SETTING.FETCH_FEATURE_LIST}
-			columnDef={columnRoleDef}
+			columnDef={columnFeatureDef}
 			filterFields={filterFields}
 			title="Feature"
 			name={name}

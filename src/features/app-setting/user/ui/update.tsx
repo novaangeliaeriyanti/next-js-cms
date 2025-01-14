@@ -8,6 +8,7 @@ import useUser from '../hooks/useUser';
 import { UserFormFields } from '@/shared/model/app-setting/userTypes';
 import { APPSETTING_USER } from '@/shared/constants/path';
 import UserEntryForm from './entry';
+import { isEmpty } from '@/shared/hooks/useValidate';
 
 function AppSettingUserUpdate() {
   const router = useRouter()
@@ -23,8 +24,8 @@ function AppSettingUserUpdate() {
       latitude: data?.longitude?.toString(),
       login_attempt: data?.login_attempt?.toString(),
       reset_password_attempt: data?.reset_password_attempt?.toString(),
-      created_date: data?.create_date?? "",
-      last_login: data?.last_login ?? "",
+      created_date: !isEmpty(data?.create_date) ? new Date(data?.create_date)?.toISOString() : "",
+      last_login: !isEmpty(data?.last_login) ? new Date(data?.last_login)?.toISOString() : "",
       name: { id: data?.identity_id, name: data?.name},
       role: { id: data?.role_id, name: data?.role },
     }
@@ -54,7 +55,8 @@ function AppSettingUserUpdate() {
 			longitude: Number(data?.longitude),
 			is_active: data?.is_active,
 			is_lock: data?.is_lock,
-			created_date: data?.created_date,
+			create_date: data?.created_date,
+      created_date: data?.created_date,
 			last_login: data?.last_login,
 			access_token: data?.access_token,
 			refresh_token: data?.refresh_token,

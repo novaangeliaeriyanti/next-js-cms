@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import { useForm, SubmitHandler, type FieldErrors } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-
 import { Form } from '@/components/form/form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod';
 import router, { useRouter } from 'next/router';
 import { InputField } from '@/components/form/inputField';
 import { CheckboxField } from '@/components/form/checkBoxField';
-import { APPSETTING_CLIENT_APP_VERSION } from '@/shared/constants/path';
-import { ClientAppVersionSchema } from '../model/clientAppVersionSchema';
-import { Label } from '@/components/ui/label';
-import LookupClientAppType from '@/features/lookup/lookupClientAppType';
+import { CompanySchema } from '../model/companySchema';
+import { MASTERDATA_COMPANY } from '@/shared/constants/path';
+import { InputDate } from '@/components/form/inputDate';
 
 type Params = {
 	initialData?: any;
@@ -20,26 +18,26 @@ type Params = {
 }
 
 
-function ClientAppVersionEntryForm({
+function CompanyEntryForm({
 	initialData,
 	onFormSubmit,
 	isPending
 }: Params) {
-	const form = useForm<z.infer<typeof ClientAppVersionSchema>>({
-		resolver: zodResolver(ClientAppVersionSchema),
+	const form = useForm<z.infer<typeof CompanySchema>>({
+		resolver: zodResolver(CompanySchema),
 		defaultValues: initialData
 	});
 
-	const onSubmit: SubmitHandler<z.infer<typeof ClientAppVersionSchema>> = (data) => {
+	const onSubmit: SubmitHandler<z.infer<typeof CompanySchema>> = (data) => {
 		onFormSubmit && onFormSubmit(data);
 	};
 
-	const onError = (errors: FieldErrors<typeof ClientAppVersionSchema>) => {
+	const onError = (errors: FieldErrors<typeof CompanySchema>) => {
 		console.log('form errors: ', errors);
 
 	};
 	const goBack = () => {
-		router.replace(APPSETTING_CLIENT_APP_VERSION.LIST)
+		router.replace(MASTERDATA_COMPANY.LIST)
 	}
 	return (
 		<>
@@ -53,25 +51,19 @@ function ClientAppVersionEntryForm({
 							<div className='flex flex-col flex-1 gap-3 mb-3'>
 								<div className="grid md:grid-cols-2 w-full gap-3 ">
 									<div className='flex flex-col gap-3'>
-										<div className="grid w-full gap-3 ">
-											<LookupClientAppType name='client_app_type'/>
-										</div>
 										<InputField
-											title="Version"
-											name="version"
-											placeholder="Version"
+											title="Name"
+											name='name'
+											placeholder='Name'
 											required
-											onKeyDown={(e) => {
-												if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete') {
-												  e.preventDefault();
-												}
-											}
-											}
 										/>
-									</div>
-									<div className='flex flex-col gap-3'>
-										<Label htmlFor="is_active" className="text-sm font-medium">Is Active</Label>
-										<CheckboxField name="is_active" title="Yes" />
+										<CheckboxField name="is_vendor" title="Is Vendor" />
+										<InputDate
+											title="Invoice Due Date"
+											name="invoice_due_date"
+											placeholder="Invoice Due Date"
+											time
+										/>
 									</div>
 								</div> 
 							</div>
@@ -91,4 +83,4 @@ function ClientAppVersionEntryForm({
 	);
 }
 
-export default ClientAppVersionEntryForm;
+export default CompanyEntryForm;

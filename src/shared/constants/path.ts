@@ -55,6 +55,18 @@ const APPSETTING_USER = {
   UPDATE: `/app-setting/user/update`
 }
 
+const MASTERDATA_COMPANY = {
+  LIST: `/master-data/company`,
+  ADD: `/master-data/company/add`,
+  UPDATE: `/master-data/company/update`
+}
+
+const MASTERDATA_EMPLOYEE = {
+  LIST: `/master-data/employee`,
+  ADD: `/master-data/employee/add`,
+  UPDATE: `/master-data/employee/update`
+}
+
 // const PRIVATE_ROUTES = [DASHBOARD];
 const AUTH_ROUTES = [LOGIN];
 
@@ -70,5 +82,7 @@ export {
   APPSETTING_PARAMETER_ITEM,
   APPSETTING_ROLE,
   APPSETTING_TASK_SCHEDULE,
-  APPSETTING_USER
+  APPSETTING_USER,
+  MASTERDATA_COMPANY,
+  MASTERDATA_EMPLOYEE
 };
