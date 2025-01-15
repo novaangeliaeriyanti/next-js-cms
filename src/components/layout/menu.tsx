@@ -42,7 +42,7 @@ export default function Menu({
 
 	useEffect(() => {
 		const menus = populateMenu(user);
-
+		console.log('menus: ', menus)
 		setMenus(menus);
 	}, [populateMenu])
 

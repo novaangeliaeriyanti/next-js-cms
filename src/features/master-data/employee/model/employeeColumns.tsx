@@ -1,6 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
-import { formatDate, isEmpty } from '@/shared/hooks/useValidate';
+import { formatDate, formatImage, isEmpty } from '@/shared/hooks/useValidate';
 import { EmployeeTableFields } from '@/shared/model/master-data/employeeTypes';
+import Image from 'next/image';
 
 const columnHelper = createColumnHelper<EmployeeTableFields>();
 
@@ -33,7 +34,16 @@ export const columnDef = [
   }),
   columnHelper.accessor('employee_photo', {
     header: 'Employee Photo',
-    cell: (info) => <div className={isEmpty(info.getValue()) ? 'text-center' : ''}>{!isEmpty(info.getValue()) ? info.getValue() : '-'}</div>
+    cell: (info) => 
+      <div className='text-center'>
+          <Image
+            src={formatImage(info.getValue()) ? info.getValue() : "/person.jpg"}
+            alt="image"
+            width={1024}
+            height={700}
+            className="h-full object-cover"
+          />
+      </div>
   }),
   columnHelper.accessor('company', {
     header: 'Company',
