@@ -85,7 +85,7 @@ const MASTER_DATA = {
   CREATE_EMPLOYEE: `/master-data/employee`,
   UPDATE_EMPLOYEE: `/master-data/employee`,
   DELETE_EMPLOYEE: `/master-data/employee`,
-
+  FETCH_DIVISION_LIST:'/master-data/employee/lookup'
 }
 
 export { BASE_URL, LOGIN, APP_SETTING, MASTER_DATA };

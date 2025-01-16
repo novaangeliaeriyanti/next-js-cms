@@ -11,6 +11,9 @@ import { InputDate } from '@/components/form/inputDate';
 import { EmployeeSchema } from '../model/employeeSchema';
 import { MASTERDATA_EMPLOYEE } from '@/shared/constants/path';
 import { TextAreaField } from '@/components/form/textAreaField';
+import { InputImage } from '@/components/form/inputImage';
+import LookupCompany from '@/features/lookup/lookupCompany';
+import LookupDivision from '@/features/lookup/lookupDivision';
 
 type Params = {
 	initialData?: any;
@@ -40,6 +43,7 @@ function EmployeeEntryForm({
 	const goBack = () => {
 		router.replace(MASTERDATA_EMPLOYEE.LIST)
 	}
+
 	return (
 		<>
 			<section className="flex flex-col flex-1 bg-white rounded-xl shadow-xl my-5 p-4 pb-60 overflow-y-auto max-h-screen ">
@@ -62,7 +66,6 @@ function EmployeeEntryForm({
 											title="Email"
 											name='email'
 											placeholder='Email'
-											required
 										/>
 										<InputField
 											title="Mobile Phone"
@@ -70,21 +73,24 @@ function EmployeeEntryForm({
 											placeholder='Mobile Phone'
 											required
 										/>
-										<InputField
+										{/* <InputField
 											title="Company"
 											name='company'
 											placeholder='Company'
 											required
-										/>
+										/> */}
+										<LookupCompany name="company"/>
+										<InputImage title="Employee Photo" name='employee_photo'/>
 										<CheckboxField name="is_active" title="Is Active" />
 									</div>
 									<div className='flex flex-col gap-3'>
-										<InputField
+										{/* <InputField
 											title="Division"
 											name='division'
 											placeholder='Division'
 											required
-										/>
+										/> */}
+										<LookupDivision name="division" />
 										<InputDate
 											title="Join Date"
 											name="join_date"

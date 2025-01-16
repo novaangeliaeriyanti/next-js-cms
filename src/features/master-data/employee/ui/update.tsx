@@ -19,6 +19,14 @@ function MasterDataEmployeeUpdate() {
   const toSchema = (data: any) => {
     data = {
       ...data,
+      company:{
+        name:data?.company,
+        id:data?.company_id
+      },
+      division:{
+        division:data?.division,
+        division_id:data?.division_id
+      }
     }
 
     return data;
@@ -36,9 +44,11 @@ function MasterDataEmployeeUpdate() {
       name: data.name,
 			email: data.email,
 			mobile_phone: data.mobile_phone,
-			employee_photo: data.employee_photo ,
-			company: data.company ,
-			division: data.division ,
+			employee_photo: data.employee_photo?.name,
+			company: data.company?.name,
+      company_id: data?.company?.id,
+			division: data.division?.division,
+      division_id: data?.division?.division_id,
 			is_active: data.is_active ,
 			join_date: data.join_date ,
 			resign_date: data.resign_date ,

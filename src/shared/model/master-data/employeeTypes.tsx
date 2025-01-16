@@ -16,6 +16,13 @@ export type EmployeeTableFields = {
 	unique_key: string;
 }
 
+export type DivisionTableFields = {
+	id: number;
+	no: number;
+	division: string;
+	division_id?:number;
+}
+
 export interface EmployeeFormFields {
 	id?: number;	
 	name: string;
@@ -23,7 +30,9 @@ export interface EmployeeFormFields {
 	mobile_phone:string;
 	employee_photo: string;
 	company: string;
+	company_id: number;
 	division: string;
+	division_id: number;
 	is_active: boolean;
 	join_date: string;
 	resign_date: string;

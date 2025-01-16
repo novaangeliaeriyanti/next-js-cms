@@ -14,9 +14,15 @@ function MasterDataEmployeeAdd() {
 		email: '',
 		mobile_phone: '',
 		employee_photo: '',
-		company: '',
-		division: '',
-		is_active: '',
+		company: {
+			id:'',
+			name:''
+		},
+		division: {
+			id:'',
+			name:''
+		},
+		is_active: false,
 		join_date: '',
 		resign_date: '',
 		unique_key: '',
@@ -30,9 +36,11 @@ function MasterDataEmployeeAdd() {
 			name: data.name,
 			email: data.email,
 			mobile_phone: data.mobile_phone,
-			employee_photo: data.employee_photo ,
-			company: data.company ,
-			division: data.division ,
+			employee_photo: data.employee_photo?.name ,
+			company: data.company?.name,
+			company_id: data?.company?.id,
+			division: data.division?.division,
+			division_id:data?.division?.division_id,
 			is_active: data.is_active ,
 			join_date: data.join_date ,
 			resign_date: data.resign_date ,
