@@ -1,26 +1,37 @@
 import { NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
+import { toast } from "@/components/ui/use-toast";
 
-export const UploadImageLocal = async (req, res) => {
-  const formData = await req.formData();
-
-  const file = formData.get("file");
-  if (!file) {
-    return NextResponse.json({ error: "No files received." }, { status: 400 });
-  }
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filename =  file.name.replaceAll(" ", "_");
-  console.log(filename);
+export const UploadImageLocal = async (data:any) => {  
+  const formData = new FormData();
+  formData.append('file', data);
   try {
-    await writeFile(
-      path.join(process.cwd(), "public/assets/" + filename),
-      buffer
-    );
-    return NextResponse.json({ Message: "Success", status: 201 });
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    const result = await response.json();
+
+    if (response.ok) {
+      // toast({
+      //   variant: 'success',
+      //   title: 'Success',
+      //   description: 'Berhasil Upload Gambar',
+      // });
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Failed',
+        description: 'Gagal Upload Gambar',
+      });
+    }
+    return result
   } catch (error) {
-    console.log("Error occured ", error);
-    return NextResponse.json({ Message: "Failed", status: 500 });
+    toast({
+      variant: 'destructive',
+      title: 'Failed',
+      description: 'Gagal Upload Gambar',
+    });
   }
 };

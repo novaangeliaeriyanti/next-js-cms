@@ -10,6 +10,8 @@ import { cn } from '@/shared/lib/utils';
 import { Input } from '../ui/input';
 import { useEffect, useState, ChangeEvent } from 'react';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
 export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string,
   containerClassName?: string,
@@ -30,6 +32,7 @@ export function InputImage({
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     if(!e){
       return null
     }
@@ -49,6 +52,7 @@ export function InputImage({
   };
   const handleRemoveClick = () => {
     setSelectedFile(null);
+    setValue(name as string, null);
   };
 
   return (
@@ -69,7 +73,15 @@ export function InputImage({
         render={({ field }) => (
           <FormItem>
             <FormControl>
-              <Input id={name} type="file" onChange={handleFileChange}/>
+              <div className='flex flex-row justify-center items-center gap-2'>
+                <Input
+                  className=" text-stone-500 p-0 file:mr-5 file:py-3 file:px-3 file:border-none file:rounded-l-md file:text-sm file:font-medium file:bg-thblue file:text-primary-foreground hover:file:cursor-pointer hover:file:bg-thblue/90 flex items-center justify-between "
+                  id={name} 
+                  type="file" 
+                  onChange={handleFileChange} 
+                  accept='image/*'
+                 />
+              </div>
             </FormControl>
             <FormMessage />
               {selectedFile && (
@@ -77,15 +89,16 @@ export function InputImage({
                 <Image
                   src={selectedFile}
                   alt="Preview"
-                  width={500}
-                  height={500}
+                  width={150}
+                  height={150}
+                  className="border-[1px] border-gray-400 rounded-md p-4 border-dashed"
                 />
                 <button
                   onClick={handleRemoveClick}
-                  className="absolute top-0 right-0 bg-red-500 text-white py-1 px-2"
+                  className="absolute top-0 ml-[152px] bg-destructive text-white rounded-md hover:bg-destructive/80"
                   aria-label="Remove image"
                 >
-                  X
+                  <X stroke="white"/>
                 </button>
               </div>
             )}
