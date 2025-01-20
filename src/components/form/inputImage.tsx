@@ -12,9 +12,12 @@ import { useEffect, useState, ChangeEvent } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
+import { isEmpty } from '@/shared/hooks/useValidate';
+import { decode64 } from '@/shared/hooks/useImage';
 export interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string,
   containerClassName?: string,
+  name: string | "",
 };
 
 export function InputImage({
@@ -26,7 +29,7 @@ export function InputImage({
   ...props
 
 }: InputFieldProps) {
-  const { control, getFieldState, setValue, watch } = useFormContext();
+  const { control, getFieldState, setValue, watch, getValues } = useFormContext();
   const fieldState = getFieldState(name as string);
 
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
@@ -37,6 +40,7 @@ export function InputImage({
       return null
     }
     const file = e?.target?.files?.[0];
+    console.log('file: ', file)
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -55,6 +59,12 @@ export function InputImage({
     setValue(name as string, null);
   };
 
+  useEffect(() => {
+	  if(!isEmpty(watch(name))){
+      setValue(name as string, decode64(watch(name)));
+	  }
+	}, [])
+  // console.log('selectedFile: ', selectedFile)
   return (
     <div
       className={cn(

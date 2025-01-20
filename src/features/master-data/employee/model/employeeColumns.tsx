@@ -2,6 +2,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { formatDate, formatImage, isEmpty } from '@/shared/hooks/useValidate';
 import { EmployeeTableFields } from '@/shared/model/master-data/employeeTypes';
 import Image from 'next/image';
+import { decode64 } from '@/shared/hooks/useImage';
 
 const columnHelper = createColumnHelper<EmployeeTableFields>();
 
@@ -37,10 +38,10 @@ export const columnDef = [
     cell: (info) => 
       <div className='text-center'>
           <Image
-            src={formatImage(info.getValue()) ? info.getValue() : "/person.jpg"}
-            alt="image"
-            width={1024}
-            height={700}
+            src={isEmpty(decode64(info.getValue())) ? "/person.jpg" : `/${decode64(info.getValue())}` }
+            alt={decode64(info.getValue()) || 'photo'}
+            width={50}
+            height={50}
             className="h-full object-cover"
           />
       </div>
