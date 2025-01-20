@@ -52,8 +52,12 @@ export default function Menu({
 				<div className="flex gap-3 py-5 rounded-l-full ">
 					<HiHome className="text-xl " />
 					<h3 className={cn(
-						"text-base font-medium",
-					)}>Dashboard</h3>
+						"text-base font-medium cursor-pointer",
+					)}
+					onClick={() => router.replace('/')}
+					>
+					Dashboard
+					</h3>
 				</div>
 			</div>
 			<Accordion

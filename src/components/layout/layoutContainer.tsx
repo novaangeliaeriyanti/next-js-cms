@@ -8,7 +8,7 @@ function LayoutContainer(props: any) {
       <Sidebar />
       <div className="flex flex-col h-screen py-5 px-5 w-full">
         <Header />
-        <div className='flex-1 overflow-y-hidden '>
+        <div className='flex-1 overflow-y-auto'>
           {props.children}
         </div>
         <Footer />
