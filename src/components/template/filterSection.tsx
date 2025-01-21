@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select"
 import { Input } from '../ui/input';
 import { filterParams } from '@/shared/model/defaultParams';
-import { RefreshCw } from 'lucide-react';
+import { File, FileX, Paperclip, RefreshCw } from 'lucide-react';
 
 type FilterLogicalType = 'OR' | 'AND';
 type CriteriaType = {
@@ -24,14 +24,20 @@ type CriteriaType = {
 
 interface FilterSectionProps{
   filterFields: filterParams[],
-  setCriteria: (criteria: CriteriaType) => void
-  refresh:() => void
+  setCriteria: (criteria: CriteriaType) => void,
+  refresh:() => void,
+  onExportPdf:() => void,
+  onExportExcel: () => void,
+  onExportCsv: () => void
 }
 
 export default function FilterSection<T,>({
   filterFields,
   setCriteria,
-  refresh
+  refresh,
+  onExportPdf,
+  onExportExcel,
+  onExportCsv
 }: FilterSectionProps) {
 
   const [searchKey, setSearchKey] = useState<string | undefined>(undefined)
@@ -84,47 +90,74 @@ export default function FilterSection<T,>({
         </div>
         <div>
           <div className='flex flex-row w-full gap-3 items-center'>
-            <div className="flex gap-3 w-full">
-              <Select
-                onValueChange={(e) => { console.log('e', e); setSearchKey(e) }}
-                value={searchKey}
-              >
-                <SelectTrigger >
-                  <SelectValue placeholder={`--Select Criteria--`} />
-                </SelectTrigger>
-                <SelectContent>
-                  {filterFields.map((field) => (
-                    <SelectItem key={`opton-${field.name}`} value={field.name as string}>{field.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <div className="relative w-full ">
-                <Input
-                  placeholder='type to search'
-                  className="px-10 py-2 "
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  onKeyUp={(e) => { console.log(searchKey, searchValue); e.key === 'Enter' && onSearch() }}
-                />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaSearch className="icon-small text-thblue" />
+            <div className='w-full flex flex-row gap-3'>
+              <div className="flex gap-3 w-full">
+                <div className='w-60'>
+                  <Select
+                    onValueChange={(e) => { console.log('e', e); setSearchKey(e) }}
+                    value={searchKey}
+                  >
+                    <SelectTrigger >
+                      <SelectValue placeholder={`--Select Criteria--`} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {filterFields.map((field) => (
+                        <SelectItem key={`opton-${field.name}`} value={field.name as string}>{field.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="relative w-full ">
+                  <Input
+                    placeholder='type to search'
+                    className="px-10 py-2 "
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onKeyUp={(e) => { console.log(searchKey, searchValue); e.key === 'Enter' && onSearch() }}
+                  />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaSearch className="icon-small text-thblue" />
+                  </div>
                 </div>
               </div>
+              <div className='flex gap-3'>
+                <Button type='button' className='flex gap-1' onClick={onSearch} >
+                  <FaSearch size={15} />
+                  Search
+                </Button>
+                <Button type='button'
+                  className='flex gap-1'
+                  onClick={handleClearSearch}
+                >
+                  <RefreshCw size={15}/>
+                  Refresh
+                </Button>
+              </div>
             </div>
-            <div className='flex gap-3'>
-              <Button type='button' className='flex gap-1' onClick={onSearch} >
-                <FaSearch className="icon-small" />
-                Search
-              </Button>
-              <Button type='button'
-                className='flex gap-1'
-                onClick={handleClearSearch}
-              >
-                <RefreshCw width={20}/>
-                Refresh
-              </Button>
+            <div className='flex w-1/3 gap-3 flex-row justify-end'>
+                <Button
+                  className='flex p-2 items-center justify-center rounded-md border bg-thgray text-white hover:bg-thgray/90' 
+                  onClick={onExportCsv} 
+                >
+                  <Paperclip size={14}/>
+                  <span>CSV</span>
+                </Button>
+                <Button type='button'
+                  className='p-2 flex items-center justify-center rounded-md border bg-thgray text-white hover:bg-thgray/90' 
+                  onClick={onExportExcel}
+                >
+                  <FileX width={15}/>
+                  <span>Excel</span>
+                </Button>
+                <Button type='button'
+                  className='flex p-2 items-center justify-center rounded-md border bg-thgray text-white hover:bg-thgray/90' 
+                  onClick={onExportPdf}
+                >
+                  <File width={14}/>
+                  <span>PDF</span>
+                </Button>
             </div>
+
           </div>
           {filter.length > 0 &&
             <div className='flex gap-y-2 flex-col py-2 pr-2'>

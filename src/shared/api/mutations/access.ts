@@ -20,11 +20,6 @@ const updateAccess = async ({data}: {data: any}) => {
 };
 
 const deleteAccess = async ({id}: {id: string}) => {
-	// const res = await postData({
-	// 	endpoint: `${APP_SETTING.UPDATE_ACCESS}/${id}`,
-	// 	data
-	// });
-
 	const res = await deleteData({
 		endpoint: `${APP_SETTING.DELETE_ACCESS}/${id}`
 	});

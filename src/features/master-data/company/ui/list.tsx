@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import router from 'next/router';
 import { columnDef } from '../model/companyColumns';
 import TableFilter from '@/components/template/tableFilter';
-import { APP_SETTING, MASTER_DATA } from '@/shared/constants/endpoint';
+import { MASTER_DATA } from '@/shared/constants/endpoint';
 import LoadingOverlay from '@/components/ui/custom/loadingOverlay';
 import { FaPlus } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
@@ -47,6 +47,9 @@ export default function CompanyList() {
           filterFields={CompanyFilterFields}
           onRowDelete={onRowDelete}
           onRowEdit={onRowEdit}
+          endPointPDF={MASTER_DATA.EXPORT_PDF_COMPANY}
+          endPointExcel={MASTER_DATA.EXPORT_EXCEL_COMPANY}
+          endPointCSV={MASTER_DATA.EXPORT_CSV_COMPANY}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

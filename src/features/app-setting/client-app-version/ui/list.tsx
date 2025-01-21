@@ -47,6 +47,9 @@ export default function ClientAppVersionList() {
           filterFields={ClientAppVersionFilterFields}
           onRowEdit={onRowEdit}
           onRowDelete={onRowDelete}
+          endPointPDF={APP_SETTING.EXPORT_PDF_CLIENT_APP_VERSION}
+          endPointExcel={APP_SETTING.EXPORT_EXCEL_CLIENT_APP_VERSION}
+          endPointCSV={APP_SETTING.EXPORT_CSV_CLIENT_APP_VERSION}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

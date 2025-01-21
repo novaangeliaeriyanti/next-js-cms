@@ -47,6 +47,9 @@ export default function ParameterList() {
           filterFields={ParameterItemFilterFields}
           onRowDelete={onRowDelete}
           onRowEdit={onRowEdit}
+          endPointPDF={APP_SETTING.EXPORT_PDF_PARAMETER_ITEM}
+          endPointExcel={APP_SETTING.EXPORT_EXCEL_PARAMETER_ITEM}
+          endPointCSV={APP_SETTING.EXPORT_CSV_PARAMETER_ITEM}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

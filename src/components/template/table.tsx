@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/select';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Spinner } from '../ui/spinner';
-import { ChevronDown, ChevronUp } from "lucide-react"
+import { MoveDown, MoveUp, MoveVertical } from "lucide-react"
 import { Button } from '../ui/button';
 import { RiDeleteBin6Fill, RiEdit2Fill } from 'react-icons/ri';
 import { DeleteDialog } from '../ui/custom/deleteDialog';
@@ -170,7 +170,7 @@ const Table = <T,>({
                         <div
                           className={
                             header.column.getCanSort()
-                              ? 'cursor-pointer select-none flex flex-row can-sort'
+                              ? 'cursor-pointer select-none flex flex-row can-sort items-center justify-center '
                               : ''
                           }
                           onClick={header.column.getToggleSortingHandler()}
@@ -188,10 +188,15 @@ const Table = <T,>({
                             header.column.columnDef.header,
                             header.getContext()
                           )}
-                          {{
-                            asc: <ChevronUp size={20} />,
-                            desc: <ChevronDown size={20} />,
-                          }[header.column.getIsSorted() as string] ?? null}
+                          {
+                          header.column.getCanSort() ? (
+                            {
+                              asc: <MoveUp size={13} className="text-2xl text-thgray"/>,
+                              desc: <MoveDown size={13} className="text-2xl text-thgray"/>,
+                              default: <MoveVertical size={13} className="text-2xl text-thgray" />
+                            }[header.column.getIsSorted() as string] ?? <MoveVertical size={13} className="text-2xl text-thgray"/>
+                          ) : null
+                        }
                         </div>
                       )}
                   </div>

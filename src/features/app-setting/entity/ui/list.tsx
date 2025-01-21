@@ -47,6 +47,9 @@ export default function EntityList() {
           filterFields={EntityFilterFields}
           onRowDelete={onRowDelete}
           onRowEdit={onRowEdit}
+          endPointPDF={APP_SETTING.EXPORT_PDF_ENTITY}
+          endPointExcel={APP_SETTING.EXPORT_EXCEL_ENTITY}
+          endPointCSV={APP_SETTING.EXPORT_CSV_ENTITY}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

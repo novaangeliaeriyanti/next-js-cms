@@ -47,6 +47,9 @@ export default function EmployeeList() {
           filterFields={EmployeeFilterFields}
           onRowDelete={onRowDelete}
           onRowEdit={onRowEdit}
+          endPointPDF={MASTER_DATA.EXPORT_PDF_EMPLOYEE}
+          endPointExcel={MASTER_DATA.EXPORT_EXCEL_EMPLOYEE}
+          endPointCSV={MASTER_DATA.EXPORT_CSV_EMPLOYEE}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

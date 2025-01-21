@@ -9,6 +9,9 @@ import useFetchList from '@/shared/hooks/useFetchList';
 import { cn } from '@/shared/lib/utils';
 import FilterSection from './filterSection';
 import LoadingOverlay from '../ui/custom/loadingOverlay';
+import useFetchPdf from '@/shared/hooks/useFetchPdf';
+import useFetchExcel from '@/shared/hooks/useFetchExcel';
+import useFetchCsv from '@/shared/hooks/useFetchCsv';
 
 interface TableFilterProps<T,> {
   endPoint: string,
@@ -19,6 +22,9 @@ interface TableFilterProps<T,> {
   onRowDelete?: (row: T) => void;
   initialPageSize?: number;
   maxHeight?: string;
+  endPointPDF: string,
+  endPointExcel: string,
+  endPointCSV: string
 }
 
 
@@ -31,7 +37,10 @@ export default function TableFilter<T,>(
     onRowEdit,
     onRowDelete,
     initialPageSize,
-    maxHeight
+    maxHeight,
+    endPointPDF,
+    endPointExcel,
+    endPointCSV
   }: TableFilterProps<T>) {
   const [pagination, setPagination] = React.useState({
     page_number: 0,
@@ -45,6 +54,10 @@ export default function TableFilter<T,>(
   const [criteria, setCriteria] = React.useState<CriteriaType>()
   const [pageParams, setPageParams] = React.useState<defaultListParams>({})
   const { data, isLoading, refetch } = useFetchList(pageParams, endPoint);
+  const { mutationExportPdf, handleExportPdf } = useFetchPdf(endPointPDF);
+  const { mutationExportExcel, handleExportExcel } = useFetchExcel(endPointExcel);
+  const { mutationExportCsv, handleExportCsv } = useFetchCsv(endPointCSV);
+
   const tableData = (data as any);
 
   useEffect(() => {
@@ -56,9 +69,31 @@ export default function TableFilter<T,>(
     })
   }, [pagination, sorting, criteria])
 
+  const onExportPdf = () =>{
+    if(!mutationExportPdf?.isPending){
+      const data = {
+        operator:1,
+        conditions:criteria?.conditions
+      }
+      handleExportPdf(data)
+    }
+  }
+
+  const onExportExcel = () => {
+    if(!mutationExportExcel?.isPending){
+      handleExportExcel(criteria)
+    }
+  }
+
+  const onExportCsv = () => {
+    if(!mutationExportCsv?.isPending){
+      handleExportCsv(criteria)
+    }
+  }
+
   return (
     <section className="flex flex-col flex-1 bg-white rounded-xl shadow-xl my-4 p-3 gap-3 ">
-      <FilterSection filterFields={filterFields} setCriteria={setCriteria} refresh={refetch}/>
+      <FilterSection filterFields={filterFields} setCriteria={setCriteria} refresh={refetch} onExportPdf={onExportPdf} onExportExcel={onExportExcel} onExportCsv={onExportCsv}/>
       <div className={cn('overflow-y-auto ', maxHeight ? `min-h-[${maxHeight}] max-h-[${maxHeight}] pb-6`: 'min-h-screen max-h-screen pb-96')} >
         <Table
           data={tableData?.rows as any[] || []}
@@ -88,6 +123,7 @@ export default function TableFilter<T,>(
           onRowDelete={onRowDelete}
         />
       </div>
+      <LoadingOverlay isOpen={mutationExportPdf?.isPending || mutationExportExcel?.isPending || mutationExportCsv?.isPending}/>
     </section>
   );
 }

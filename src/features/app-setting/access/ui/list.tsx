@@ -45,6 +45,9 @@ export default function AppsetttingAccessList() {
           filterFields={AccessFilterFields}
           onRowEdit={onRowEdit}
           onRowDelete={onRowDelete}
+          endPointPDF={APP_SETTING.EXPORT_PDF_ACCESS}
+          endPointExcel={APP_SETTING.EXPORT_EXCEL_ACCESS}
+          endPointCSV={APP_SETTING.EXPORT_CSV_ACCESS}
         />
       </div>
 

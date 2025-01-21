@@ -47,6 +47,9 @@ export default function FeatureList() {
           filterFields={FeatureFilterFields}
           onRowDelete={onRowDelete}
           onRowEdit={onRowEdit}
+          endPointPDF={APP_SETTING.EXPORT_PDF_FEATURE}
+          endPointExcel={APP_SETTING.EXPORT_EXCEL_FEATURE}
+          endPointCSV={APP_SETTING.EXPORT_CSV_FEATURE}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

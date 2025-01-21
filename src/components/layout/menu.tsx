@@ -73,7 +73,6 @@ export default function Menu({
 								<h3 className={cn(
 									"text-base font-medium original-left duration-1000",
 								)}>{menu.feature}</h3>
-
 							</div>
 						</AccordionTrigger>
 						{menu.children.map((child: any, ind: number) => (

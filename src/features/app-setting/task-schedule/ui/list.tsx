@@ -47,6 +47,9 @@ export default function TaskScheduleList() {
           filterFields={TaskScheduleFilterFields}
           onRowDelete={onRowDelete}
           onRowEdit={onRowEdit}
+          endPointPDF={APP_SETTING.EXPORT_PDF_TASK_SCHEDULE}
+          endPointExcel={APP_SETTING.EXPORT_EXCEL_TASK_SCHEDULE}
+          endPointCSV={APP_SETTING.EXPORT_CSV_TASK_SCHEDULE}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>

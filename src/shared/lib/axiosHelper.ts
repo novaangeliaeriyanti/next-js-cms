@@ -3,19 +3,22 @@ import type { AxiosRequestConfig } from 'axios';
 import AxiosInstance from '@/shared/api/axiosInstance';
 
 function handleError(error: any) {
-  // Handle error
-  if (error.response) {
-    // Server merespons dengan status selain 2xx
+  if (error.response || error?.response?.status === 401 || error?.response?.status === 500) {
     console.error(
       'Error response:',
       error
     );
   } else if (error.request) {
-    // Tidak ada respons dari server
     console.error('No response from server:', error.request);
     console.error('Error message:', error.message);
+  } else if(error?.isAxiosError) {
+    if (error?.code === 'ECONNABORTED') {
+      console.error(
+        'Error response:',
+        error
+      );
+    }
   } else {
-    // Error lainnya
     console.error('Error:', error.message);
   }
   throw error;
@@ -54,6 +57,93 @@ async function postData({
     console.log('error', error);
     handleError(error);
     return error;
+  }
+}
+
+async function exportDataPdf({
+  endpoint,
+  data,
+  config = {},
+}: {
+  endpoint: string;
+  data: any;
+  config?: AxiosRequestConfig<any>;
+}) {
+  try {
+    const responseConfig = {
+      ...config,
+      responseType: config.responseType || 'json',
+    };
+
+    const response = await AxiosInstance.post(endpoint, data, responseConfig);
+
+    if (responseConfig.responseType === 'arraybuffer') {
+      const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+      return pdfBlob;
+    }
+
+    return response.data;
+  } catch (error: any) {
+    handleError(error);
+    throw error;
+  }
+}
+
+async function exportDataExcel({
+  endpoint,
+  data,
+  config = {},
+}: {
+  endpoint: string;
+  data: any;
+  config?: AxiosRequestConfig<any>;
+}) {
+  try {
+    const responseConfig = {
+      ...config,
+      responseType: config.responseType || 'arraybuffer',
+    };
+
+    const response = await AxiosInstance.post(endpoint, data, responseConfig);
+
+    if (responseConfig.responseType === 'arraybuffer') {
+      const fileBlob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      return fileBlob;
+    }
+
+    return response.data;
+  } catch (error: any) {
+    handleError(error);
+    throw error;
+  }
+}
+
+async function exportDataCsv({
+  endpoint,
+  data,
+  config = {},
+}: {
+  endpoint: string;
+  data: any;
+  config?: AxiosRequestConfig<any>;
+}) {
+  try {
+    const responseConfig = {
+      ...config,
+      responseType: config.responseType || 'arraybuffer',
+    };
+
+    const response = await AxiosInstance.post(endpoint, data, responseConfig);
+
+    if (responseConfig.responseType === 'arraybuffer') {
+      const fileBlob = new Blob([response.data], { type: 'text/csv' });
+      return fileBlob;
+    }
+
+    return response.data;
+  } catch (error: any) {
+    handleError(error);
+    throw error;
   }
 }
 
@@ -109,4 +199,4 @@ async function deleteData({
   }
 }
 
-export { deleteData, getData, patchData, postData, putData };
+export { deleteData, getData, patchData, postData, putData, exportDataPdf, exportDataExcel, exportDataCsv };

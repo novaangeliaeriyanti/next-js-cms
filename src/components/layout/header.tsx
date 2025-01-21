@@ -23,7 +23,6 @@ export default function Header() {
 				<Breadcrumb className="text-sm">
 					<BreadcrumbList>
 						<div className='flex flex-row items-center gap-2'>
-
 							<BreadcrumbItem className="flex items-center">
 								<HiHome className="text-xl" />
 								<BreadcrumbLink href="/" className="">

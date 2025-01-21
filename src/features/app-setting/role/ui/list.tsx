@@ -47,6 +47,9 @@ export default function RoleList() {
           filterFields={RoleFilterFields}
           onRowDelete={onRowDelete}
           onRowEdit={onRowEdit}
+          endPointPDF={APP_SETTING.EXPORT_PDF_ROLE}
+          endPointExcel={APP_SETTING.EXPORT_EXCEL_ROLE}
+          endPointCSV={APP_SETTING.EXPORT_CSV_ROLE}
         />
       </div>
       <LoadingOverlay isOpen={mutationDelete?.isPending}/>
