@@ -26,4 +26,12 @@ const deleteEmployee = async ({id}: {id: string}) => {
 	return res?.data;
 };
 
-export { deleteEmployee, updateEmployee, createEmployee };
+const uploadEmployeePhoto = async (data: any) => {
+	const res = await postData({
+		endpoint: MASTER_DATA.UPLOAD_EMPLOYEE_PHOTO,
+		data
+	});
+
+	return res?.data;
+};
+export { deleteEmployee, updateEmployee, createEmployee, uploadEmployeePhoto };

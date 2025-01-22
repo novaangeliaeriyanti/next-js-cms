@@ -16,6 +16,8 @@ import LookupDivision from '@/features/lookup/lookupDivision';
 import { InputImage } from '@/components/form/inputImage';
 import { UploadImageLocal } from '@/shared/api/mutations/image';
 import { isEmpty } from '@/shared/hooks/useValidate';
+import useEmployee from '../hooks/useEmployee';
+import { convertFileToBase64 } from '@/shared/hooks/useImage';
 
 type Params = {
   initialData?: any;
@@ -32,12 +34,25 @@ function EmployeeEntryForm({
     resolver: zodResolver(EmployeeSchema),
     defaultValues: initialData,
   });
+  const { handleUploadPhoto, mutationUploadPhoto } = useEmployee();
 
-  const onSubmit: SubmitHandler<z.infer<typeof EmployeeSchema>> = async (data) => {
+  const onSubmit: SubmitHandler<z.infer<typeof EmployeeSchema>> = async (data:any) => {
 	if(!isEmpty(data?.employee_photo)){
-		UploadImageLocal(data?.employee_photo)
+      const base64Content = await convertFileToBase64(data?.employee_photo);
+      const base64Data = base64Content.split(',')[1];
+
+      const dataEmployeePhoto = {
+        Files:[
+          {
+            file_name: data?.employee_photo?.name,
+            file_content: base64Data
+          }
+        ],
+        id: initialData?.id
+      }
+		handleUploadPhoto(dataEmployeePhoto)
 	}
-	onFormSubmit && onFormSubmit(data)
+	onFormSubmit && mutationUploadPhoto?.isSuccess && onFormSubmit(data)
   };
 
   const onError = (errors: FieldErrors<typeof EmployeeSchema>) => {
@@ -60,7 +75,7 @@ function EmployeeEntryForm({
               <div className="grid md:grid-cols-2 w-full gap-3">
                 <div className="flex flex-col gap-3">
                   <InputField title="Name" name="name" placeholder="Name" required />
-				  <CheckboxField name="is_active" title="Is Active" />
+				          <CheckboxField name="is_active" title="Is Active" />
                   <InputField title="Email" name="email" placeholder="Email" />
                   <InputField
                     title="Mobile Phone"
@@ -69,7 +84,7 @@ function EmployeeEntryForm({
                     required
                   />
                   <LookupCompany name="company" />
-				  <InputImage name="employee_photo"/>
+				          <InputImage name="employee_photo"/>
                 </div>
                 <div className="flex flex-col gap-3">
                   <LookupDivision name="division" />

@@ -51,6 +51,7 @@ export default function Header() {
 						logout();
 
 					}}
+					className='cursor-pointer'
 				>
 					<AvatarImage src="https://github.com/shadcn.png" />
 					<AvatarFallback>CN</AvatarFallback>

@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast  } from '@/components/ui/use-toast';
 import useMutationHook from '@/shared/hooks/useMutationHook';
 import { MASTER_DATA } from '@/shared/constants/endpoint';
-import { createEmployee, deleteEmployee, updateEmployee } from '@/shared/api/mutations/employee';
+import { createEmployee, deleteEmployee, updateEmployee, uploadEmployeePhoto } from '@/shared/api/mutations/employee';
 
 const useEmployee = () => {
 	const queryClient = useQueryClient();
@@ -84,13 +84,40 @@ const useEmployee = () => {
 		return await mutationUpdate.mutateAsync({data});
 	};
 
+	const mutationUploadPhoto = useMutationHook({
+		api: uploadEmployeePhoto,
+		options: {
+			onError: (error: any) => {
+				toast({
+				  variant: 'destructive',
+				  title: 'Gagal Upload Employee Photo',
+				  description: 'Silahkan coba kembali',
+				});
+			},
+			onSuccess: () => {
+				toast({
+					variant: 'success',
+					title: "Success",
+					description:'Berhasil Upload Employee Photo',
+				  })
+				// queryClient.invalidateQueries({ queryKey: [`${MASTER_DATA.FETCH_EMPLOYEE_LIST}`] });
+			},
+		},
+	});
+
+	const handleUploadPhoto = async (data: any) => {
+		return await mutationUploadPhoto.mutateAsync(data);
+	};
+
 	return {
 		mutationDelete,
 		mutationCreate,
 		mutationUpdate,
+		mutationUploadPhoto,
 		handleDelete,
 		handleCreate,
-		handleUpdate
+		handleUpdate,
+		handleUploadPhoto
 	};
 };
 

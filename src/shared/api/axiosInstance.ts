@@ -9,11 +9,9 @@ import type {
   import Cookies from 'js-cookie';
   
 //   import { toast } from '@/components/ui/use-toast';
-  
 //   import { BASE_API_URL } from '../constants/endpoint';
 import { BASE_URL } from '../constants/endpoint';
-
-  import {LOGIN } from '@/shared/constants/path'
+import {LOGIN } from '@/shared/constants/path'
 
   const  AxiosInstanceConfig = {
     timeout: 30000,
@@ -41,7 +39,7 @@ import { BASE_URL } from '../constants/endpoint';
     function (response: AxiosResponse) {
       return response; // simply return the response
     },
-    function (err) {
+    function (err: AxiosError) {
       console.log('error response', err)
       // const status = err.response ? err.response.status : null;
   

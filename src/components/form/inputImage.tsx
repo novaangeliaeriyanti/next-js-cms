@@ -40,7 +40,6 @@ export function InputImage({
       return null
     }
     const file = e?.target?.files?.[0];
-    console.log('file: ', file)
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -64,7 +63,6 @@ export function InputImage({
       setValue(name as string, decode64(watch(name)));
 	  }
 	}, [])
-  // console.log('selectedFile: ', selectedFile)
   return (
     <div
       className={cn(
@@ -97,7 +95,7 @@ export function InputImage({
               {selectedFile && (
               <div className="mt-2 relative">
                 <Image
-                  src={selectedFile}
+                  src={selectedFile || ""}
                   alt="Preview"
                   width={150}
                   height={150}
@@ -111,7 +109,7 @@ export function InputImage({
                   <X stroke="white"/>
                 </button>
               </div>
-            )}
+              )}
           </FormItem>
         )}
       />

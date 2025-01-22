@@ -120,6 +120,7 @@ const MASTER_DATA = {
   EXPORT_PDF_EMPLOYEE: `/master-data/employee/export/pdf`,
   EXPORT_EXCEL_EMPLOYEE: `master-data/employee/export/xlsx`,
   EXPORT_CSV_EMPLOYEE: `master-data/employee/export/csv`,
+  UPLOAD_EMPLOYEE_PHOTO:`/master-data/employee/upload/employee-photo`
 }
 
 export { BASE_URL, LOGIN, APP_SETTING, MASTER_DATA };
