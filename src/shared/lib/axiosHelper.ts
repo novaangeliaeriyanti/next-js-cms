@@ -3,20 +3,13 @@ import type { AxiosRequestConfig } from 'axios';
 import AxiosInstance from '@/shared/api/axiosInstance';
 
 function handleError(error: any) {
-  if (error.response || error?.response?.status === 401 || error?.response?.status === 500) {
-    console.error(
-      'Error response:',
-      error
-    );
-  } else if (error.request) {
+  if (error.request) {
     console.error('No response from server:', error.request);
-    console.error('Error message:', error.message);
-  } else if(error?.isAxiosError) {
+    // console.error('Error message:', error.message);
+  } 
+  else if(error?.isAxiosError) {
     if (error?.code === 'ECONNABORTED') {
-      console.error(
-        'Error response:',
-        error
-      );
+     throw error;
     }
   } else {
     console.error('Error:', error.message);
@@ -54,9 +47,8 @@ async function postData({
     const response = await AxiosInstance.post(endpoint, data, config);
     return response;
   } catch (error: any) {
-    console.log('error', error);
     handleError(error);
-    return error;
+    throw error;
   }
 }
 
@@ -105,7 +97,7 @@ async function exportDataExcel({
     };
 
     const response = await AxiosInstance.post(endpoint, data, responseConfig);
-
+    console.log('response: ', response)
     if (responseConfig.responseType === 'arraybuffer') {
       const fileBlob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       return fileBlob;
@@ -113,7 +105,7 @@ async function exportDataExcel({
 
     return response.data;
   } catch (error: any) {
-    handleError(error);
+    // handleError(error);
     throw error;
   }
 }

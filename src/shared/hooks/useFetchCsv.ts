@@ -57,7 +57,12 @@ const useFetchCsv = (endpoint: string) => {
 	});
   
 	const handleExportCsv = async (data: any) => {
-	  return await mutationExportCsv.mutateAsync(data);
+		try {
+			return await mutationExportCsv.mutateAsync(data);
+		} catch (error) {
+			return error
+		}
+	
 	};
   
 	return {

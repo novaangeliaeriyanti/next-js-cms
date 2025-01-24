@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { FaLeftLong } from 'react-icons/fa6';
 import router from 'next/router';
@@ -7,6 +7,8 @@ import useEmployee from '../hooks/useEmployee';
 import { EmployeeFormFields } from '@/shared/model/master-data/employeeTypes';
 import { MASTERDATA_EMPLOYEE } from '@/shared/constants/path';
 import EmployeeEntryForm from './entry';
+import { isEmpty } from '@/shared/hooks/useValidate';
+import { convertFileToBase64 } from '@/shared/hooks/useImage';
 
 function MasterDataEmployeeAdd() {
 	const dataEmployee = {
@@ -28,15 +30,16 @@ function MasterDataEmployeeAdd() {
 		unique_key: '',
 	};
 
-	const { handleCreate, mutationCreate } = useEmployee();
-	const { isPending, isError, error,isSuccess } = mutationCreate;
-
+	const { handleCreate, mutationCreate, handleUploadPhoto } = useEmployee();
+	const { isPending, isError, error,isSuccess, data } = mutationCreate;
+	const [employeePhoto, setEmployeePhoto] =  useState<File>();
+	
 	const onFormSubmit = useCallback((data: any) => {
 		const formData: EmployeeFormFields = {
 			name: data.name,
 			email: data.email,
 			mobile_phone: data.mobile_phone,
-			employee_photo: data.employee_photo?.name ,
+			employee_photo: data.employee_photo?.name,
 			company: data.company?.name,
 			company_id: data?.company?.id,
 			division: data.division?.division,
@@ -47,15 +50,36 @@ function MasterDataEmployeeAdd() {
 			unique_key: data.unique_key ,
 			}
 		handleCreate(formData);
+		setEmployeePhoto(data?.employee_photo)
 	}, [])
 
 	const goBack=() => {
 		router.replace(MASTERDATA_EMPLOYEE.LIST)
 	}
 
+	const onUploadEmployeePhoto = async()=>{
+		const base64Content = await convertFileToBase64(employeePhoto as File);
+		const base64Data = base64Content.split(',')[1]
+		const dataEmployeePhoto = {
+			Files:[
+					{
+					  file_name: employeePhoto?.name,
+					  file_content: base64Data
+					}
+				  ],
+				  id: (data as any)?.data?.id
+		}
+		handleUploadPhoto(dataEmployeePhoto)
+	}
+
 	useEffect(() => {
-    if (isSuccess) goBack()
-  }, [isSuccess])
+    	if (isSuccess){
+			if(!isEmpty(employeePhoto)){
+				onUploadEmployeePhoto()
+			}
+			goBack()
+		}
+  	}, [isSuccess])
 
 	return (
 		<div className="mt-4 ">

@@ -14,10 +14,6 @@ import { TextAreaField } from '@/components/form/textAreaField';
 import LookupCompany from '@/features/lookup/lookupCompany';
 import LookupDivision from '@/features/lookup/lookupDivision';
 import { InputImage } from '@/components/form/inputImage';
-import { UploadImageLocal } from '@/shared/api/mutations/image';
-import { isEmpty } from '@/shared/hooks/useValidate';
-import useEmployee from '../hooks/useEmployee';
-import { convertFileToBase64 } from '@/shared/hooks/useImage';
 
 type Params = {
   initialData?: any;
@@ -34,25 +30,9 @@ function EmployeeEntryForm({
     resolver: zodResolver(EmployeeSchema),
     defaultValues: initialData,
   });
-  const { handleUploadPhoto, mutationUploadPhoto } = useEmployee();
-
   const onSubmit: SubmitHandler<z.infer<typeof EmployeeSchema>> = async (data:any) => {
-	if(!isEmpty(data?.employee_photo)){
-      const base64Content = await convertFileToBase64(data?.employee_photo);
-      const base64Data = base64Content.split(',')[1];
 
-      const dataEmployeePhoto = {
-        Files:[
-          {
-            file_name: data?.employee_photo?.name,
-            file_content: base64Data
-          }
-        ],
-        id: initialData?.id
-      }
-		handleUploadPhoto(dataEmployeePhoto)
-	}
-	onFormSubmit && mutationUploadPhoto?.isSuccess && onFormSubmit(data)
+	onFormSubmit && onFormSubmit(data)
   };
 
   const onError = (errors: FieldErrors<typeof EmployeeSchema>) => {

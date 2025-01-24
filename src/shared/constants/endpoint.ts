@@ -1,6 +1,7 @@
 const BASE_URL: string = process.env.NEXT_PUBLIC_API_URL || '';
 
 const LOGIN = '/authentication/session';
+const SESSION_RENEW = '/authentication/session/renew';
 const APP_SETTING = {
   FETCH_ACCESS_LIST:'/app-setting/access/paging',
   FETCH_ACCESS_BY_ID: `/app-setting/access`,
@@ -123,4 +124,4 @@ const MASTER_DATA = {
   UPLOAD_EMPLOYEE_PHOTO:`/master-data/employee/upload/employee-photo`
 }
 
-export { BASE_URL, LOGIN, APP_SETTING, MASTER_DATA };
+export { BASE_URL, LOGIN, APP_SETTING, MASTER_DATA, SESSION_RENEW };

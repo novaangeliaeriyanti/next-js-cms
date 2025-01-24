@@ -88,11 +88,11 @@ const useEmployee = () => {
 		api: uploadEmployeePhoto,
 		options: {
 			onError: (error: any) => {
-				toast({
-				  variant: 'destructive',
-				  title: 'Gagal Upload Employee Photo',
-				  description: 'Silahkan coba kembali',
-				});
+				// toast({
+				//   variant: 'destructive',
+				//   title: 'Gagal Upload Employee Photo',
+				//   description: 'Silahkan coba kembali',
+				// });
 			},
 			onSuccess: () => {
 				toast({
@@ -100,13 +100,16 @@ const useEmployee = () => {
 					title: "Success",
 					description:'Berhasil Upload Employee Photo',
 				  })
-				// queryClient.invalidateQueries({ queryKey: [`${MASTER_DATA.FETCH_EMPLOYEE_LIST}`] });
 			},
 		},
 	});
 
 	const handleUploadPhoto = async (data: any) => {
-		return await mutationUploadPhoto.mutateAsync(data);
+		try {
+			return await mutationUploadPhoto.mutateAsync(data);
+		} catch (error) {
+			return error
+		}
 	};
 
 	return {

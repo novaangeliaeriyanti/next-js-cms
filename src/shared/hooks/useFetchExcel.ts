@@ -57,7 +57,11 @@ const useFetchExcel = (endpoint: string) => {
 	});
   
 	const handleExportExcel = async (data: any) => {
-	  return await mutationExportExcel.mutateAsync(data);
+		try {
+			return await mutationExportExcel.mutateAsync(data);
+		} catch (error) {
+			return error
+		}
 	};
   
 	return {

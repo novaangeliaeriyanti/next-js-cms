@@ -57,7 +57,11 @@ const useFetchPdf = (endpoint: string) => {
 	});
   
 	const handleExportPdf = async (data: any) => {
-	  return await mutationExportPdf.mutateAsync(data);
+		try {
+			return await mutationExportPdf.mutateAsync(data);
+		} catch (error) {
+			return error
+		}
 	};
   
 	return {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { FaLeftLong } from 'react-icons/fa6';
 import { useRouter } from 'next/router';
@@ -8,6 +8,8 @@ import { EmployeeFormFields } from '@/shared/model/master-data/employeeTypes';
 import useEmployee from '../hooks/useEmployee';
 import { MASTERDATA_EMPLOYEE } from '@/shared/constants/path';
 import EmployeeEntryForm from './entry';
+import { isEmpty } from '@/shared/hooks/useValidate';
+import { convertFileToBase64 } from '@/shared/hooks/useImage';
 
 function MasterDataEmployeeUpdate() {
   const router = useRouter()
@@ -35,10 +37,11 @@ function MasterDataEmployeeUpdate() {
 
   const { data, isLoading } = useFetchById(MASTER_DATA.FETCH_EMPLOYEE_BY_ID, id as string);
   const dataEmployee = toSchema((data as any));
-  const { handleUpdate, mutationUpdate } = useEmployee();
+  const { handleUpdate, mutationUpdate, handleUploadPhoto } = useEmployee();
 	const { isPending, isError, error,isSuccess } = mutationUpdate;
+  const [employeePhoto, setEmployeePhoto] =  useState<File>();
 
-  const onFormSubmit = (data: any) => {
+  const onFormSubmit = async(data: any) => {
 		const formData: EmployeeFormFields = {
       id: dataEmployee?.id,
       name: data.name,
@@ -57,14 +60,35 @@ function MasterDataEmployeeUpdate() {
 		handleUpdate({
       data: formData
     });
+    setEmployeePhoto(data?.employee_photo)
 	}
 
   const goBack=useCallback(() => {
 		router.replace(MASTERDATA_EMPLOYEE.LIST)
 	}, [router])
 
+  const onUploadEmployeePhoto = async()=>{
+		const base64Content = await convertFileToBase64(employeePhoto as File);
+		const base64Data = base64Content.split(',')[1]
+		const dataEmployeePhoto = {
+			Files:[
+					{
+					  file_name: employeePhoto?.name,
+					  file_content: base64Data
+					}
+				  ],
+				  id: dataEmployee?.id
+		}
+		handleUploadPhoto(dataEmployeePhoto)
+	}
+
   useEffect(() => {
-    if (isSuccess) goBack()
+    if (isSuccess){
+			if(!isEmpty(employeePhoto)){
+				onUploadEmployeePhoto()
+			}
+			goBack()
+		}
   }, [isSuccess, goBack])
 
   return (
